@@ -1,0 +1,3 @@
+﻿# Apache Pinot — real-time fraud + payment OLAP
+image: { repository: apachepinot/pinot, tag: 1.2.0 }
+pinot: { controllers: 2, brokers: 2, servers: 4 }

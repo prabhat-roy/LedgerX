@@ -1,0 +1,16 @@
+﻿# Skaffold pipeline for LedgerX
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata: { name: ledgerx }
+build:
+  artifacts:
+    - { image: ledgerx/api-gateway, context: src/api-gateway }
+    - { image: ledgerx/identity-service, context: src/identity-service }
+  local: { push: false }
+deploy:
+  helm:
+    releases:
+      - { name: api-gateway, chartPath: helm/charts/api-gateway, namespace: ledgerx }
+profiles:
+  - name: prod
+    deploy: { kubectl: { manifests: ["manifests/prod/*.yaml"] } }

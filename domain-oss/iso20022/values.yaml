@@ -1,0 +1,4 @@
+﻿# ISO 20022 message router (Apache Camel routes)
+image: { repository: apache/camel-k, tag: latest }
+camel:
+  routes: [pacs.008, pacs.009, pain.001, camt.053]

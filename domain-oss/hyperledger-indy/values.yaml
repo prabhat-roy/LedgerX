@@ -1,0 +1,3 @@
+﻿# Hyperledger Indy — decentralised identity for KYC + reusable customer credentials
+image: { repository: hyperledger/indy-node, tag: latest }
+indy: { network: ledgerx-net, nodes: 4 }

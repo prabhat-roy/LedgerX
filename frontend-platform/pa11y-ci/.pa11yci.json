@@ -1,0 +1,9 @@
+﻿{
+  "defaults": { "standard": "WCAG2AA", "timeout": 30000, "concurrency": 4, "chromeLaunchConfig": { "args": ["--no-sandbox"] } },
+  "urls": [
+    "https://www.ledgerx.internal/",
+    "https://www.ledgerx.internal/about",
+    "https://app.ledgerx.internal/login",
+    "https://app.ledgerx.internal/dashboard"
+  ]
+}
