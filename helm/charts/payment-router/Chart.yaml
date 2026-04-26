@@ -1,0 +1,6 @@
+apiVersion: v2
+name: payment-router
+description: Smart payment router (cost+latency+success-rate optimisation across rails)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

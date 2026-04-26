@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.customer360.events",
+  "name": "SegmentChanged",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "customer_token", "type": "string" },
+    { "name": "old_segment", "type": "string" },
+    { "name": "new_segment", "type": "string" }
+  ]
+}

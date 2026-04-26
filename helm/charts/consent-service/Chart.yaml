@@ -1,0 +1,6 @@
+apiVersion: v2
+name: consent-service
+description: PSD2 consent management (CIBA + redirect, FAPI 2.0)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

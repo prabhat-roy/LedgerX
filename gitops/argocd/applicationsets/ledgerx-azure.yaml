@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata: { name: ledgerx-azure, namespace: argocd }
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - { region: eastus, cluster: ledgerx-eastus }
+                - { region: westeurope, cluster: ledgerx-westeurope }
+                - { region: centralindia, cluster: ledgerx-centralindia }
+          - git:
+              repoURL: https://github.com/prabhat-roy/LedgerX
+              revision: HEAD
+              directories: [{ path: helm/charts/* }]
+  template:
+    metadata: { name: '{{cluster}}-{{path.basename}}' }
+    spec:
+      project: ledgerx
+      source:
+        repoURL: https://github.com/prabhat-roy/LedgerX
+        targetRevision: HEAD
+        path: '{{path}}'
+        helm: { valueFiles: [values.yaml, values-azure.yaml] }
+      destination: { name: '{{cluster}}', namespace: ledgerx }
+      syncPolicy: { automated: { prune: true, selfHeal: true }, syncOptions: [CreateNamespace=true] }

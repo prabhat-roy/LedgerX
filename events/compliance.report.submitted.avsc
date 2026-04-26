@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.compliance.events",
+  "name": "ReportSubmitted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "report_type", "type": "string", "doc": "COREP | FINREP | LCR | NSFR | CTR | 1099" },
+    { "name": "regulator", "type": "string" },
+    { "name": "period", "type": "string" }
+  ]
+}

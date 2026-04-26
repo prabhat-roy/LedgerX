@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.corebanking.events",
+  "name": "LedgerReversed",
+  "doc": "Compensating-entry posted; never UPDATE/DELETE on the journal.",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "original_journal_id", "type": "string" },
+    { "name": "compensating_journal_id", "type": "string" },
+    { "name": "reason", "type": "string" }
+  ]
+}

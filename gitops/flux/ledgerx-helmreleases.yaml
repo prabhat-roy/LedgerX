@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata: { name: ledger-service, namespace: ledgerx }
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: helm/charts/ledger-service
+      sourceRef: { kind: GitRepository, name: ledgerx, namespace: flux-system }
+  values:
+    cloud: { provider: aws }
+  install: { remediation: { retries: 3 } }
+  upgrade: { remediation: { retries: 3 } }
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata: { name: payment-router, namespace: ledgerx }
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: helm/charts/payment-router
+      sourceRef: { kind: GitRepository, name: ledgerx, namespace: flux-system }

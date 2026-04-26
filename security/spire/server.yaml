@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: spire-server, namespace: security }
+data:
+  server.conf: |
+    server {
+      bind_address = "0.0.0.0"
+      bind_port = "8081"
+      trust_domain = "ledgerx.internal"
+      data_dir = "/run/spire/data"
+      log_level = "INFO"
+      ca_subject = { country = ["US"], organization = ["LedgerX"], common_name = "LedgerX Root CA" }
+    }
+    plugins {
+      DataStore "sql" { plugin_data { database_type = "postgres" connection_string = "host=spire-db port=5432 user=spire dbname=spire sslmode=require" } }
+      KeyManager "aws_kms" { plugin_data { region = "us-east-1", key_metadata_file = "/run/spire/data/keys.json" } }
+      NodeAttestor "k8s_psat" { plugin_data { clusters { "ledgerx-use1" { service_account_allow_list = ["spire:spire-agent"] } } } }
+      Notifier "k8sbundle" { plugin_data { namespace = "security" config_map = "spire-bundle" } }
+    }

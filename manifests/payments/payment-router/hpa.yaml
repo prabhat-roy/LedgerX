@@ -1,0 +1,10 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: payment-router, namespace: ledgerx }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: payment-router }
+  minReplicas: 6
+  maxReplicas: 30
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 65 } }

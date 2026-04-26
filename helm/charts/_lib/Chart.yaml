@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ledgerx-lib
+description: Shared LedgerX helpers/templates for all per-service charts (library chart)
+type: library
+version: 0.1.0

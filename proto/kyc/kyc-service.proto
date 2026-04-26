@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package ledgerx.kyc.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.kyc.v1";
+option java_multiple_files = true;
+
+// kyc-service: KYC workflow orchestrator.
+service KycService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc StartKyc(StartKycRequest) returns (StartKycResponse);
+  rpc GetStatus(GetKycStatusRequest) returns (KycStatus);
+}
+
+message StartKycRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string tier = 2;               // BASIC, ENHANCED
+  string country_code = 3;
+}
+message StartKycResponse { string case_id = 1; }
+message GetKycStatusRequest { string case_id = 1; }
+message KycStatus {
+  string case_id = 1;
+  string status = 2;             // PENDING, APPROVED, REJECTED, REVIEW
+  string tier = 3;
+}

@@ -1,0 +1,6 @@
+cloud: { provider: gcp, regions: [us-east1, europe-west1, asia-south1] }
+serviceAccount: { annotations: { iam.gke.io/gcp-service-account: "ledgerx-card-issuance@{{ .Values.gcp.project }}.iam.gserviceaccount.com" } }
+config:
+  HSM_TYPE: cloud-hsm
+  GCP_KMS_KEYRING: "{{ .Values.gcp.kmsKeyring }}"
+envFrom: [ { secretRef: { name: card-issuance-gcp-secrets } } ]

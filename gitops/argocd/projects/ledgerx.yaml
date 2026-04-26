@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: { name: ledgerx, namespace: argocd }
+spec:
+  description: LedgerX banking platform
+  sourceRepos:
+    - https://github.com/prabhat-roy/LedgerX
+    - https://harbor.ledgerx.internal/chartrepo/ledgerx
+  destinations:
+    - { server: '*', namespace: 'ledgerx*' }
+    - { server: '*', namespace: 'cards-cde' }    # PCI-DSS scope
+  clusterResourceWhitelist:
+    - { group: '', kind: Namespace }
+    - { group: rbac.authorization.k8s.io, kind: ClusterRole }
+  namespaceResourceBlacklist:
+    - { group: '', kind: ResourceQuota }
+  roles:
+    - name: developer
+      policies: [p, proj:ledgerx:developer, applications, sync, ledgerx/*, allow]
+    - name: ledger-approver
+      description: Two-person rule second approver for ledger / payment-router prod
+      policies: [p, proj:ledgerx:ledger-approver, applications, sync, ledgerx/ledger-*, allow]

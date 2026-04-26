@@ -1,0 +1,16 @@
+format: sarif
+output: trivy.sarif
+exit-code: 1
+severity: [CRITICAL, HIGH]
+ignore-unfixed: true
+db:
+  no-progress: true
+scan:
+  scanners: [vuln, secret, misconfig, license]
+misconfiguration:
+  helm:
+    values: [helm/charts/*/values.yaml]
+secret:
+  config: trivy-secret-config.yaml
+license:
+  forbidden: [GPL-3.0, AGPL-3.0]

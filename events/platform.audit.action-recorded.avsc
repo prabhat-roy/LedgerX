@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.platform.events",
+  "name": "ActionRecorded",
+  "doc": "platform.audit.action-recorded — emitted on every privileged write across LedgerX",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "actor_id", "type": ["null", "string"], "default": null },
+    { "name": "approver_id", "type": ["null", "string"], "default": null, "doc": "Two-person rule second approver" },
+    { "name": "service", "type": "string" },
+    { "name": "action", "type": "string" },
+    { "name": "resource", "type": "string" },
+    { "name": "outcome", "type": "string", "doc": "SUCCESS | DENIED | FAILED" }
+  ]
+}

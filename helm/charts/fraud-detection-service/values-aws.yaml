@@ -1,0 +1,3 @@
+cloud: { provider: aws, regions: [us-east-1, eu-west-1, ap-south-1], multiRegion: active-active }
+serviceAccount: { annotations: { eks.amazonaws.com/role-arn: "arn:aws:iam::{{ .Values.aws.accountId }}:role/ledgerx-fraud-detection" } }
+envFrom: [ { secretRef: { name: fraud-detection-aws-secrets } } ]

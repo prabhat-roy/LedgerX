@@ -1,0 +1,16 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.cards.events",
+  "name": "AuthorisationApproved",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "card_token", "type": "string" },
+    { "name": "auth_code", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount", "type": "string" },
+    { "name": "merchant_id", "type": "string" },
+    { "name": "mcc", "type": "string" },
+    { "name": "country_code", "type": "string" }
+  ]
+}

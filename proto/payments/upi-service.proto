@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package ledgerx.payments.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.payments.v1";
+option java_multiple_files = true;
+
+// upi-service: UPI real-time rails (NPCI).
+service UpiService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Pay(UpiPayRequest) returns (UpiPayResponse);
+  rpc Collect(UpiCollectRequest) returns (UpiCollectResponse);
+}
+
+message UpiPayRequest {
+  string payer_vpa = 1;
+  string payee_vpa = 2;
+  ledgerx.common.v1.Money amount = 3;
+  string remarks = 4;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 5;
+}
+message UpiPayResponse { string rrn = 1; string status = 2; }
+
+message UpiCollectRequest {
+  string payer_vpa = 1;
+  string payee_vpa = 2;
+  ledgerx.common.v1.Money amount = 3;
+  int32 expiry_minutes = 4;
+}
+message UpiCollectResponse { string txn_id = 1; }

@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.kyc.events",
+  "name": "ScreeningMatched",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "customer_token", "type": "string" },
+    { "name": "list_name", "type": "string", "doc": "OFAC_SDN | UN_CONSOLIDATED | EU_FSF" },
+    { "name": "match_score", "type": "double" }
+  ]
+}

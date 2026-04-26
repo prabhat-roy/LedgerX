@@ -1,0 +1,4 @@
+apiVersion: v1
+kind: Service
+metadata: { name: card-issuance, namespace: cards-cde }
+spec: { type: ClusterIP, ports: [{ port: 60060, targetPort: http, name: http }], selector: { app: card-issuance } }

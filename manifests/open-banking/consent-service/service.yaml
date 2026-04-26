@@ -1,0 +1,4 @@
+apiVersion: v1
+kind: Service
+metadata: { name: consent-service, namespace: ledgerx }
+spec: { type: ClusterIP, ports: [{ port: 60220, targetPort: http, name: http }], selector: { app: consent-service } }

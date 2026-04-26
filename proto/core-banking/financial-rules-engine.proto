@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package ledgerx.corebanking.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.corebanking.v1";
+option java_multiple_files = true;
+
+// financial-rules-engine: pure Haskell calculator — interest accrual, IFRS 17 cashflow.
+// Side-effect-free; safe to call repeatedly with the same inputs.
+service FinancialRulesEngine {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc CalculateInterest(CalculateInterestRequest) returns (CalculateInterestResponse);
+  rpc CalculateAmortisation(CalculateAmortisationRequest) returns (CalculateAmortisationResponse);
+}
+
+message CalculateInterestRequest {
+  ledgerx.common.v1.Money principal = 1;
+  string annual_rate = 2;        // canonical decimal string e.g. "0.0625"
+  string day_count_convention = 3;  // ACT/360, ACT/365, 30/360
+  string from_date = 4;
+  string to_date = 5;
+}
+message CalculateInterestResponse {
+  ledgerx.common.v1.Money interest = 1;
+}
+
+message CalculateAmortisationRequest {
+  ledgerx.common.v1.Money principal = 1;
+  string annual_rate = 2;
+  int32 term_months = 3;
+  string method = 4;             // FRENCH, GERMAN, BULLET
+}
+message CalculateAmortisationResponse {
+  repeated AmortisationPeriod schedule = 1;
+}
+message AmortisationPeriod {
+  int32 period = 1;
+  ledgerx.common.v1.Money principal_due = 2;
+  ledgerx.common.v1.Money interest_due = 3;
+  ledgerx.common.v1.Money outstanding = 4;
+}

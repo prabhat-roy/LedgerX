@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.cards.events",
+  "name": "CardIssued",
+  "doc": "cards.card.issued — Conduktor Gateway enforces tokenisation; raw PAN MUST not be in this event.",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "card_token", "type": "string" },
+    { "name": "last_four", "type": "string" },
+    { "name": "scheme", "type": "string" },
+    { "name": "customer_token", "type": "string" },
+    { "name": "product_code", "type": "string" }
+  ]
+}

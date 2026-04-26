@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package ledgerx.customer360.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.customer360.v1";
+option java_multiple_files = true;
+
+// customer-profile-service: customer profile master.
+service CustomerProfileService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc GetProfile(GetProfileRequest) returns (CustomerProfile);
+}
+
+message GetProfileRequest { ledgerx.common.v1.CustomerRef customer = 1; }
+message CustomerProfile {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string segment = 2;
+  string risk_band = 3;
+  ledgerx.common.v1.Address mailing_address = 4;
+}

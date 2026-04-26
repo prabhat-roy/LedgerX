@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: ledger-service, namespace: ledgerx }
+spec:
+  replicas: 6
+  strategy:
+    blueGreen:
+      activeService: ledger-service
+      previewService: ledger-service-preview
+      autoPromotionEnabled: false       # MANUAL promotion — two-person rule
+      scaleDownDelaySeconds: 300
+      prePromotionAnalysis:
+        templates: [{ templateName: ledgerx-success-rate }]
+        args: [{ name: service-name, value: ledger-service-preview }]
+      postPromotionAnalysis:
+        templates: [{ templateName: ledgerx-success-rate }]
+        args: [{ name: service-name, value: ledger-service }]
+  selector: { matchLabels: { app: ledger-service } }
+  template:
+    metadata: { labels: { app: ledger-service, ledgerx.io/money-moving: "true" } }
+    spec:
+      containers:
+        - name: ledger-service
+          image: harbor.ledgerx.internal/ledgerx/ledger-service:0.1.0
+          ports: [{ containerPort: 60021, name: http }]

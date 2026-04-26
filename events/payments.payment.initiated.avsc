@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.payments.events",
+  "name": "PaymentInitiated",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "idempotency_key", "type": "string" },
+    { "name": "payment_id", "type": "string" },
+    { "name": "debit_account_token", "type": "string" },
+    { "name": "creditor_token", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount", "type": "string" },
+    { "name": "preferred_rail", "type": "string" }
+  ]
+}

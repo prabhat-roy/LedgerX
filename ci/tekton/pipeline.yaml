@@ -1,0 +1,44 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata: { name: ledgerx-build-deploy }
+spec:
+  params:
+    - { name: service, type: string }
+    - { name: revision, type: string, default: main }
+  workspaces:
+    - { name: src }
+    - { name: cache }
+  tasks:
+    - name: clone
+      taskRef: { name: git-clone }
+      workspaces: [{ name: output, workspace: src }]
+      params:
+        - { name: url, value: "https://github.com/prabhat-roy/LedgerX.git" }
+        - { name: revision, value: $(params.revision) }
+    - name: lint-test
+      runAfter: [clone]
+      taskRef: { name: ledgerx-lint-test }
+      workspaces: [{ name: src, workspace: src }]
+      params: [{ name: service, value: $(params.service) }]
+    - name: buildah
+      runAfter: [lint-test]
+      taskRef: { name: buildah }
+      workspaces: [{ name: source, workspace: src }]
+      params:
+        - { name: IMAGE, value: "harbor.ledgerx.internal/ledgerx/$(params.service):$(tasks.clone.results.commit)" }
+    - name: trivy
+      runAfter: [buildah]
+      taskRef: { name: trivy-scanner }
+      params: [{ name: ARGS, value: ["image", "--severity", "CRITICAL,HIGH", "--exit-code", "1", "harbor.ledgerx.internal/ledgerx/$(params.service):$(tasks.clone.results.commit)"] }]
+    - name: cosign-sign
+      runAfter: [trivy]
+      taskRef: { name: cosign }
+      params:
+        - { name: cmd, value: sign }
+        - { name: image, value: "harbor.ledgerx.internal/ledgerx/$(params.service):$(tasks.clone.results.commit)" }
+    - name: gitops-bump
+      runAfter: [cosign-sign]
+      taskRef: { name: argocd-bump }
+      params:
+        - { name: service, value: $(params.service) }
+        - { name: tag, value: $(tasks.clone.results.commit) }

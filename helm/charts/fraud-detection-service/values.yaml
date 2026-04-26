@@ -1,0 +1,16 @@
+image: { repository: ledgerx/fraud-detection-service, tag: "", pullPolicy: IfNotPresent }
+replicaCount: 8
+service: { type: ClusterIP, port: 60120, targetPort: 60120 }
+resources: { requests: { cpu: 1, memory: 2Gi }, limits: { cpu: 4, memory: 8Gi } }
+probes:
+  liveness: { httpGet: { path: /healthz, port: 60120 }, initialDelaySeconds: 30, periodSeconds: 20 }
+  readiness: { httpGet: { path: /healthz, port: 60120 }, initialDelaySeconds: 10, periodSeconds: 5 }
+serviceAccount: { create: true, annotations: {} }
+podLabels: { app.kubernetes.io/name: fraud-detection-service, app.kubernetes.io/part-of: ledgerx, ledgerx.io/domain: fraud-risk }
+podAnnotations: {}
+securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+containerSecurityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }
+env: []
+envFrom: []
+config: { LOG_LEVEL: info, FEATURE_STORE_URL: "feature-store-service.fraud-risk.svc.cluster.local:60125", MODEL_REGISTRY_URL: "mlflow.ml.svc.cluster.local:5000" }
+cloud: { provider: "" }

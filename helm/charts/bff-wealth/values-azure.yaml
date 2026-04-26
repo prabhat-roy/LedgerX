@@ -1,0 +1,6 @@
+cloud: { provider: azure, storageClass: managed-csi, ingressClass: azure-application-gateway, regions: [eastus, westeurope, centralindia] }
+serviceAccount:
+  annotations:
+    azure.workload.identity/client-id: "{{ .Values.azure.clientId }}"
+podLabels: { azure.workload.identity/use: "true" }
+envFrom: [ { secretRef: { name: bff-wealth-azure-secrets } } ]

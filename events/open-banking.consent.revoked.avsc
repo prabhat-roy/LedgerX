@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.openbanking.events",
+  "name": "ConsentRevoked",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "consent_id", "type": "string" },
+    { "name": "actor_id", "type": "string" }
+  ]
+}

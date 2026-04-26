@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.openbanking.events",
+  "name": "ConsentGranted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "consent_id", "type": "string" },
+    { "name": "tpp_id", "type": "string" },
+    { "name": "customer_token", "type": "string" },
+    { "name": "scopes", "type": { "type": "array", "items": "string" } },
+    { "name": "expires_at", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+  ]
+}

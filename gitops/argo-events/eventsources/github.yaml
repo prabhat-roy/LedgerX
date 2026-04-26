@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata: { name: github, namespace: argo }
+spec:
+  service: { ports: [{ port: 12000, targetPort: 12000 }] }
+  github:
+    ledgerx:
+      repositories: [{ owner: prabhat-roy, names: [LedgerX] }]
+      webhook: { endpoint: /push, port: "12000", method: POST, url: https://argo-events.ledgerx.internal }
+      events: [push, pull_request]
+      apiToken: { name: github-token, key: token }
+      webhookSecret: { name: github-webhook-secret, key: secret }
+      insecure: false

@@ -1,0 +1,10 @@
+cloud:
+  provider: gcp
+  storageClass: pd-balanced
+  regions: [us-east1, europe-west1, asia-south1]
+  multiRegion: active-active
+serviceAccount:
+  annotations:
+    iam.gke.io/gcp-service-account: ledgerx-ledger-service@{{ .Values.gcp.project }}.iam.gserviceaccount.com
+envFrom:
+  - secretRef: { name: ledger-service-gcp-secrets }

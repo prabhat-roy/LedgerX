@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ledgerx.payments.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.payments.v1";
+option java_multiple_files = true;
+
+// payment-router: cost + latency + success-rate optimisation across rails.
+// Two-person rule applies — production deploys require two GitOps approvers.
+service PaymentRouterService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Route(RouteRequest) returns (RouteResponse);
+}
+
+message RouteRequest {
+  string payment_id = 1;
+  string corridor = 2;             // e.g. US->IN
+  ledgerx.common.v1.Money amount = 3;
+  repeated string allowed_rails = 4;
+  string priority = 5;             // COST, SPEED, RELIABILITY
+}
+
+message RouteResponse {
+  string chosen_rail = 1;
+  string reason = 2;
+  int32 estimated_settlement_seconds = 3;
+}

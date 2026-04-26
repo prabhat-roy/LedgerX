@@ -1,0 +1,3 @@
+cloud: { provider: gcp, regions: [us-east1, europe-west1, asia-south1], multiRegion: active-active }
+serviceAccount: { annotations: { iam.gke.io/gcp-service-account: "ledgerx-saga-orchestrator@{{ .Values.gcp.project }}.iam.gserviceaccount.com" } }
+envFrom: [ { secretRef: { name: saga-orchestrator-gcp-secrets } } ]

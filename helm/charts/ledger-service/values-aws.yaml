@@ -1,0 +1,12 @@
+cloud:
+  provider: aws
+  storageClass: gp3
+  regions: [us-east-1, eu-west-1, ap-south-1]
+  multiRegion: active-active
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.aws.accountId }}:role/ledgerx-ledger-service
+config:
+  COCKROACH_HOSTS: ledger-crdb-multi-region.ledgerx.svc:26257
+envFrom:
+  - secretRef: { name: ledger-service-aws-secrets }

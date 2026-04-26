@@ -1,0 +1,16 @@
+# PCI-DSS: cards-cde namespace can talk only to tokenisation-service and HSM endpoints.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: cards-cde-isolation, namespace: cards-cde }
+spec:
+  podSelector: { matchLabels: { ledgerx.io/pci-dss: "true" } }
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - { namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: cards-cde } } }
+        - podSelector: { matchLabels: { app.kubernetes.io/name: tokenisation-service } }
+  egress:
+    - to:
+        - podSelector: { matchLabels: { app.kubernetes.io/name: tokenisation-service } }
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: security } }   # Vault HSM
+    - ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]

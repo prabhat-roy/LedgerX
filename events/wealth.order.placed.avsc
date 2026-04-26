@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.wealth.events",
+  "name": "OrderPlaced",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "order_id", "type": "string" },
+    { "name": "portfolio_id", "type": "string" },
+    { "name": "symbol", "type": "string" },
+    { "name": "side", "type": { "type": "enum", "name": "OrderSide", "symbols": ["BUY", "SELL"] } },
+    { "name": "quantity", "type": "string" },
+    { "name": "price_limit", "type": ["null", "string"], "default": null }
+  ]
+}

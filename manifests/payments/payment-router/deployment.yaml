@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: payment-router, namespace: ledgerx, labels: { app: payment-router, ledgerx.io/domain: payments, ledgerx.io/money-moving: "true" } }
+spec:
+  replicas: 6
+  selector: { matchLabels: { app: payment-router } }
+  template:
+    metadata: { labels: { app: payment-router } }
+    spec:
+      serviceAccountName: payment-router
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: payment-router
+          image: harbor.ledgerx.internal/ledgerx/payment-router:0.1.0
+          ports: [{ name: http, containerPort: 60041 }]
+          env: [{ name: PORT, value: "60041" }, { name: KAFKA_BROKERS, value: "kafka.messaging.svc.cluster.local:9092" }]
+          livenessProbe: { httpGet: { path: /healthz, port: 60041 }, initialDelaySeconds: 15 }
+          readinessProbe: { httpGet: { path: /healthz, port: 60041 }, initialDelaySeconds: 5 }
+          resources: { requests: { cpu: 500m, memory: 512Mi }, limits: { cpu: 2, memory: 2Gi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }

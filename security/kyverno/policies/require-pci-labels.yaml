@@ -1,0 +1,11 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata: { name: require-pci-labels }
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: pci-dss-namespace-must-have-label
+      match: { any: [{ resources: { kinds: [Namespace], names: [cards-cde] } }] }
+      validate:
+        message: "cards-cde namespace must carry ledgerx.io/pci-dss-scope=true"
+        pattern: { metadata: { labels: { "ledgerx.io/pci-dss-scope": "true" } } }

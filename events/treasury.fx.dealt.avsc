@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.treasury.events",
+  "name": "FxDealt",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "deal_id", "type": "string" },
+    { "name": "from_currency", "type": "string" },
+    { "name": "to_currency", "type": "string" },
+    { "name": "rate", "type": "string" },
+    { "name": "amount", "type": "string" },
+    { "name": "tenor", "type": "string" }
+  ]
+}

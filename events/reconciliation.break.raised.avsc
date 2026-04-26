@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.reconciliation.events",
+  "name": "BreakRaised",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "break_id", "type": "string" },
+    { "name": "source_system", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount", "type": "string" },
+    { "name": "reason", "type": "string" }
+  ]
+}

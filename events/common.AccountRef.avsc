@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.common.events",
+  "name": "AccountRef",
+  "fields": [
+    { "name": "token", "type": "string" },
+    { "name": "scheme", "type": "string", "doc": "IBAN, BBAN, UPI_VPA, ACCT_ID" }
+  ]
+}

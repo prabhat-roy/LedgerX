@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.corebanking.events",
+  "name": "LedgerPosted",
+  "doc": "core-banking.ledger.posted — append-only journal entry posted. Sourced from EventStoreDB.",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "idempotency_key", "type": "string" },
+    { "name": "actor_id", "type": ["null", "string"], "default": null },
+    { "name": "approver_id", "type": ["null", "string"], "default": null },
+    { "name": "journal_id", "type": "string" },
+    { "name": "sequence", "type": "long" },
+    { "name": "description", "type": "string" },
+    { "name": "lines", "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "JournalLine",
+          "fields": [
+            { "name": "account_id", "type": "string" },
+            { "name": "side", "type": { "type": "enum", "name": "Side", "symbols": ["DEBIT", "CREDIT"] } },
+            { "name": "currency_code", "type": "string" },
+            { "name": "amount", "type": "string", "doc": "Canonical decimal string" }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+- macro: ledgerx_cards_cde
+  condition: (k8s.ns.name = "cards-cde")
+
+- rule: PAN-like string in CDE pod stdout
+  desc: A 13-19 digit number was written to stdout by a pod in the CDE — possible plaintext PAN leak
+  condition: ledgerx_cards_cde and proc.is_user_mode and fd.type=fifo and fd.name in ("/dev/stdout","/dev/stderr")
+              and evt.is_io_write=true and evt.buffer matches "[0-9]{13,19}"
+  output: "Possible PAN in CDE pod stdout (pod=%k8s.pod.name proc=%proc.name)"
+  priority: CRITICAL
+  tags: [pci-dss, ledgerx]
+
+- rule: Privileged container in ledgerx namespace
+  desc: A pod in ledgerx is running privileged — should never happen
+  condition: container and container.privileged=true and k8s.ns.name in ("ledgerx", "cards-cde")
+  output: "Privileged container in %k8s.ns.name (pod=%k8s.pod.name image=%container.image.repository)"
+  priority: CRITICAL
+
+- rule: Outbound to non-allowlisted IP from ledger pods
+  desc: ledger-service or payment-router talked to an unexpected destination
+  condition: outbound and k8s.pod.label[ledgerx.io/money-moving]="true" and not fd.sip in (allowed_internal_cidrs)
+  output: "Money-moving pod %k8s.pod.name talked to %fd.sip:%fd.sport"
+  priority: WARNING

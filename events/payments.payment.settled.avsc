@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.payments.events",
+  "name": "PaymentSettled",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "payment_id", "type": "string" },
+    { "name": "rail", "type": "string" },
+    { "name": "settled_at", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+  ]
+}

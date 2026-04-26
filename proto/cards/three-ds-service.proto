@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ledgerx.cards.v1;
+
+import "common/health.proto";
+
+option java_package = "com.ledgerx.cards.v1";
+option java_multiple_files = true;
+
+// three-ds-service: 3DS / SCA challenge service.
+service ThreeDsService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+}

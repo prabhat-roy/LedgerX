@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.lending.events",
+  "name": "LoanDisbursed",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "loan_id", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount", "type": "string" },
+    { "name": "ledger_journal_id", "type": "string" }
+  ]
+}

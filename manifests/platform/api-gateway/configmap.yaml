@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: api-gateway, namespace: ledgerx }
+data:
+  LOG_LEVEL: info
+  RATE_LIMITER_URL: rate-limiter.ledgerx.svc.cluster.local:60006
+  IDEMPOTENCY_URL: idempotency-service.ledgerx.svc.cluster.local:60007
+  SAGA_ORCHESTRATOR_URL: saga-orchestrator.ledgerx.svc.cluster.local:60008

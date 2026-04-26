@@ -1,0 +1,7 @@
+cloud: { provider: azure, regions: [eastus, westeurope, centralindia] }
+serviceAccount: { annotations: { azure.workload.identity/client-id: "{{ .Values.azure.clientId }}" } }
+podLabels: { azure.workload.identity/use: "true" }
+config:
+  HSM_TYPE: managed-hsm
+  AZURE_MANAGED_HSM_NAME: "{{ .Values.azure.managedHsmName }}"
+envFrom: [ { secretRef: { name: card-issuance-azure-secrets } } ]

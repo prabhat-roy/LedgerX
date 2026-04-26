@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: consent-service, namespace: ledgerx, labels: { app: consent-service, ledgerx.io/domain: open-banking } }
+spec:
+  replicas: 3
+  selector: { matchLabels: { app: consent-service } }
+  template:
+    metadata: { labels: { app: consent-service } }
+    spec:
+      serviceAccountName: consent-service
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: consent-service
+          image: harbor.ledgerx.internal/ledgerx/consent-service:0.1.0
+          ports: [{ name: http, containerPort: 60220 }]
+          env: [{ name: PORT, value: "60220" }]
+          resources: { requests: { cpu: 200m, memory: 256Mi }, limits: { cpu: 1, memory: 1Gi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }

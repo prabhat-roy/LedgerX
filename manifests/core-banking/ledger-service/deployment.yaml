@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ledger-service, namespace: ledgerx, labels: { app: ledger-service, ledgerx.io/domain: core-banking, ledgerx.io/money-moving: "true" } }
+spec:
+  replicas: 6
+  selector: { matchLabels: { app: ledger-service } }
+  template:
+    metadata: { labels: { app: ledger-service } }
+    spec:
+      serviceAccountName: ledger-service
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+      topologySpreadConstraints:
+        - { maxSkew: 1, topologyKey: topology.kubernetes.io/zone, whenUnsatisfiable: ScheduleAnyway, labelSelector: { matchLabels: { app: ledger-service } } }
+      containers:
+        - name: ledger-service
+          image: harbor.ledgerx.internal/ledgerx/ledger-service:0.1.0
+          ports: [{ name: http, containerPort: 60021 }]
+          env:
+            - { name: PORT, value: "60021" }
+            - { name: COCKROACH_HOSTS, value: "ledger-crdb.ledgerx-data.svc.cluster.local:26257" }
+            - { name: EVENTSTORE_URL, value: "esdb://eventstore.ledgerx-data.svc.cluster.local:2113" }
+            - { name: KAFKA_BROKERS, value: "kafka.messaging.svc.cluster.local:9092" }
+          livenessProbe: { httpGet: { path: /healthz, port: 60021 }, initialDelaySeconds: 30, periodSeconds: 20 }
+          readinessProbe: { httpGet: { path: /healthz, port: 60021 }, initialDelaySeconds: 10 }
+          resources: { requests: { cpu: 1, memory: 2Gi }, limits: { cpu: 4, memory: 8Gi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }

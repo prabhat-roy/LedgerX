@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata: { name: ci-trigger, namespace: argo }
+spec:
+  template: { serviceAccountName: argo-events-sa }
+  dependencies:
+    - { name: github-push, eventSourceName: github, eventName: ledgerx, filters: { data: [{ path: body.action, type: string, value: ["push"] }] } }
+  triggers:
+    - template:
+        name: trigger-ci-build
+        argoWorkflow:
+          group: argoproj.io
+          version: v1alpha1
+          resource: workflows
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata: { generateName: ci-build- }
+              spec:
+                workflowTemplateRef: { name: ledgerx-ci-build }
+                arguments:
+                  parameters:
+                    - { name: service, value: ledger-service }
+                    - { name: domain, value: core-banking }
+                    - { name: revision, value: main }

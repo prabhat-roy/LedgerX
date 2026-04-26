@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: card-issuance, namespace: cards-cde, labels: { app: card-issuance, ledgerx.io/domain: cards, ledgerx.io/pci-dss: "true" } }
+spec:
+  replicas: 3
+  selector: { matchLabels: { app: card-issuance } }
+  template:
+    metadata: { labels: { app: card-issuance, ledgerx.io/pci-dss: "true" } }
+    spec:
+      serviceAccountName: card-issuance
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: card-issuance
+          image: harbor.ledgerx.internal/ledgerx/card-issuance:0.1.0
+          ports: [{ name: http, containerPort: 60060 }]
+          env:
+            - { name: PORT, value: "60060" }
+            - { name: VAULT_ADDR, value: "https://vault.security.svc.cluster.local:8200" }
+            - { name: HSM_PARTITION, value: "ledgerx-emv" }
+          resources: { requests: { cpu: 200m, memory: 256Mi }, limits: { cpu: 1, memory: 1Gi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: fraud-detection-service, namespace: ledgerx }
+spec:
+  replicas: 8
+  strategy:
+    canary:
+      maxSurge: 25%
+      maxUnavailable: 0
+      steps:
+        - setWeight: 5
+        - pause: { duration: 5m }
+        - analysis:
+            templates: [{ templateName: ledgerx-success-rate }]
+            args: [{ name: service-name, value: fraud-detection-service }]
+        - setWeight: 25
+        - pause: { duration: 10m }
+        - setWeight: 50
+        - pause: { duration: 10m }
+        - setWeight: 100
+  selector: { matchLabels: { app: fraud-detection-service } }
+  template:
+    metadata: { labels: { app: fraud-detection-service } }
+    spec:
+      containers:
+        - name: fraud-detection-service
+          image: harbor.ledgerx.internal/ledgerx/fraud-detection-service:0.1.0
+          ports: [{ containerPort: 60120, name: http }]

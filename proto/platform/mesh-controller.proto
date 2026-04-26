@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ledgerx.platform.v1;
+
+import "common/health.proto";
+
+option java_package = "com.ledgerx.platform.v1";
+option java_multiple_files = true;
+
+// mesh-controller: service-mesh sidecar config + traffic mirroring.
+service MeshControllerService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+}

@@ -1,0 +1,8 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.common.events",
+  "name": "CustomerRef",
+  "fields": [
+    { "name": "token", "type": "string", "doc": "Tokenised customer reference; reverse-lookup gated by Vault" }
+  ]
+}

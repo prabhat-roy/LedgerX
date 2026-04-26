@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: payment-router, namespace: ledgerx }
+data:
+  LOG_LEVEL: info
+  RAILS: "SWIFT,SEPA,UPI,ACH,RTP,FASTER"
+  ROUTING_STRATEGY: cost-and-success-rate

@@ -1,0 +1,15 @@
+output: spdx-json
+file: sbom.spdx.json
+catalogers:
+  enabled:
+    - go-module-binary-cataloger
+    - go-module-file-cataloger
+    - java-pom-cataloger
+    - java-gradle-lockfile-cataloger
+    - python-package-cataloger
+    - rust-cargo-lock-cataloger
+    - haskell-cabal-cataloger
+package:
+  cataloger:
+    enabled: true
+    scope: all-layers

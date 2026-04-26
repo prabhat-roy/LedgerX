@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package ledgerx.corebanking.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.ledgerx.corebanking.v1";
+option java_multiple_files = true;
+
+// transaction-service: authorisation + posting of customer transactions.
+service TransactionService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Authorise(AuthoriseRequest) returns (AuthoriseResponse);
+  rpc Post(PostRequest) returns (PostResponse);
+  rpc Reverse(ReverseRequest) returns (ReverseResponse);
+}
+
+message AuthoriseRequest {
+  ledgerx.common.v1.AccountRef debit_account = 1;
+  ledgerx.common.v1.AccountRef credit_account = 2;
+  ledgerx.common.v1.Money amount = 3;
+  string narration = 4;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 5;
+  ledgerx.common.v1.AuditMetadata audit = 6;
+}
+message AuthoriseResponse {
+  string auth_id = 1;
+  string status = 2;             // APPROVED, DECLINED, REVIEW
+  google.protobuf.Timestamp expires_at = 3;
+}
+
+message PostRequest {
+  string auth_id = 1;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 2;
+  ledgerx.common.v1.AuditMetadata audit = 3;
+}
+message PostResponse {
+  ledgerx.common.v1.LedgerEntryRef ledger_entry = 1;
+}
+
+message ReverseRequest {
+  string original_journal_id = 1;
+  string reason = 2;
+  ledgerx.common.v1.AuditMetadata audit = 3;
+}
+message ReverseResponse {
+  ledgerx.common.v1.LedgerEntryRef compensating_entry = 1;
+}

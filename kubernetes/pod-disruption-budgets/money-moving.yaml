@@ -1,0 +1,27 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: ledger-service-pdb, namespace: ledgerx }
+spec:
+  minAvailable: 4
+  selector: { matchLabels: { app: ledger-service } }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: payment-router-pdb, namespace: ledgerx }
+spec:
+  minAvailable: 4
+  selector: { matchLabels: { app: payment-router } }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: settlement-service-pdb, namespace: ledgerx }
+spec:
+  minAvailable: 2
+  selector: { matchLabels: { app: settlement-service } }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: api-gateway-pdb, namespace: ledgerx }
+spec:
+  minAvailable: 4
+  selector: { matchLabels: { app: api-gateway } }

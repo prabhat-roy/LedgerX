@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package ledgerx.payments.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.payments.v1";
+option java_multiple_files = true;
+
+// payment-gateway: multi-rail edge gateway. PCI-DSS edge.
+service PaymentGatewayService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc InitiatePayment(InitiatePaymentRequest) returns (InitiatePaymentResponse);
+  rpc GetPaymentStatus(GetPaymentStatusRequest) returns (PaymentStatus);
+}
+
+message InitiatePaymentRequest {
+  ledgerx.common.v1.AccountRef debit_account = 1;
+  string creditor_identifier = 2;  // tokenised
+  ledgerx.common.v1.Money amount = 3;
+  string remittance_info = 4;
+  string preferred_rail = 5;       // SWIFT, SEPA, UPI, ACH, RTP
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 6;
+  ledgerx.common.v1.AuditMetadata audit = 7;
+}
+
+message InitiatePaymentResponse {
+  string payment_id = 1;
+  string status = 2;               // ACCEPTED, ROUTED, REJECTED
+}
+
+message GetPaymentStatusRequest { string payment_id = 1; }
+message PaymentStatus {
+  string payment_id = 1;
+  string status = 2;               // INITIATED, ROUTED, SETTLED, RETURNED
+  string rail = 3;
+  string scheme_reference = 4;
+}

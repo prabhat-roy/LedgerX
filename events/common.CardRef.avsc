@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.common.events",
+  "name": "CardRef",
+  "doc": "Card reference. Conduktor Gateway enforces tokenised=true at produce time.",
+  "fields": [
+    { "name": "token", "type": "string" },
+    { "name": "last_four", "type": "string" },
+    { "name": "scheme", "type": "string", "doc": "VISA, MASTERCARD, AMEX, RUPAY, UPI" }
+  ]
+}

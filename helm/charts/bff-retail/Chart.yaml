@@ -1,0 +1,6 @@
+apiVersion: v2
+name: bff-retail
+description: BFF for retail customer mobile/web (React + Flutter)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

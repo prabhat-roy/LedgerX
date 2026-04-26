@@ -1,0 +1,22 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata: { name: fraud-detection-service, namespace: ledgerx }
+spec:
+  scaleTargetRef: { name: fraud-detection-service, kind: Rollout, apiVersion: argoproj.io/v1alpha1 }
+  minReplicaCount: 8
+  maxReplicaCount: 50
+  pollingInterval: 15
+  cooldownPeriod: 60
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: kafka.messaging.svc.cluster.local:9092
+        consumerGroup: fraud-detection
+        topic: payments.payment.initiated
+        lagThreshold: "100"
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus.observability.svc.cluster.local:9090
+        metricName: http_request_p99_ms
+        threshold: "80"
+        query: histogram_quantile(0.99, rate(http_request_duration_ms_bucket{service="fraud-detection-service"}[1m]))

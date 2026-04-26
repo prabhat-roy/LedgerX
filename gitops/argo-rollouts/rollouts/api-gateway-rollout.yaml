@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: api-gateway, namespace: ledgerx }
+spec:
+  replicas: 6
+  strategy:
+    canary:
+      steps: [ { setWeight: 10 }, { pause: { duration: 5m } }, { setWeight: 50 }, { pause: { duration: 10m } }, { setWeight: 100 } ]
+  selector: { matchLabels: { app: api-gateway } }
+  template:
+    metadata: { labels: { app: api-gateway } }
+    spec:
+      containers:
+        - name: api-gateway
+          image: harbor.ledgerx.internal/ledgerx/api-gateway:0.1.0
+          ports: [{ containerPort: 60000, name: http }]

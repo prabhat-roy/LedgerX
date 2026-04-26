@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.corebanking.events",
+  "name": "AccountOpened",
+  "doc": "core-banking.account.opened",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "idempotency_key", "type": "string" },
+    { "name": "account_id", "type": "string" },
+    { "name": "customer_token", "type": "string" },
+    { "name": "product_code", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "home_region", "type": "string", "doc": "CockroachDB region: us-east1 | eu-west1 | ap-south1" }
+  ]
+}

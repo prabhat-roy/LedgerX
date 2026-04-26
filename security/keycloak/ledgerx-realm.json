@@ -1,0 +1,36 @@
+{
+  "realm": "ledgerx",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "passwordPolicy": "length(12) and digits(1) and upperCase(1) and specialChars(1) and notUsername and passwordHistory(10)",
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA256",
+  "webAuthnPolicyRpEntityName": "LedgerX",
+  "webAuthnPolicySignatureAlgorithms": ["ES256"],
+  "webAuthnPolicyAttestationConveyancePreference": "direct",
+  "webAuthnPolicyAuthenticatorAttachment": "platform",
+  "webAuthnPolicyResidentKey": "required",
+  "webAuthnPolicyUserVerificationRequirement": "required",
+  "clients": [
+    { "clientId": "bff-retail",     "redirectUris": ["https://app.ledgerx.com/*"], "publicClient": false, "secret": "REDACTED", "protocol": "openid-connect", "standardFlowEnabled": true, "fullScopeAllowed": false },
+    { "clientId": "bff-wealth",     "redirectUris": ["https://wealth.ledgerx.com/*"], "publicClient": false, "secret": "REDACTED", "protocol": "openid-connect" },
+    { "clientId": "bff-rm",         "redirectUris": ["https://rm.ledgerx.com/*"], "publicClient": false, "secret": "REDACTED", "protocol": "openid-connect" },
+    { "clientId": "bff-open-banking","redirectUris": ["https://ob.ledgerx.com/*"], "publicClient": false, "secret": "REDACTED", "protocol": "openid-connect", "attributes": { "fapi.policies.enabled": "true" } }
+  ],
+  "roles": {
+    "realm": [
+      { "name": "customer" },
+      { "name": "rm" },
+      { "name": "compliance-officer" },
+      { "name": "ledger-approver" },
+      { "name": "pci-cde-operator" },
+      { "name": "fraud-analyst" }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata: { name: ledgerx-quota, namespace: ledgerx }
+spec:
+  hard:
+    requests.cpu: "200"
+    requests.memory: 400Gi
+    limits.cpu: "800"
+    limits.memory: 1600Gi
+    persistentvolumeclaims: "100"
+    services.loadbalancers: "0"   # only the platform-gateway LB lives in istio-ingress
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata: { name: cards-cde-quota, namespace: cards-cde }
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: 40Gi
+    pods: "30"
+    services.loadbalancers: "0"

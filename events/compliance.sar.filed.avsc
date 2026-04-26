@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.compliance.events",
+  "name": "SarFiled",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "sar_id", "type": "string" },
+    { "name": "regulator", "type": "string" },
+    { "name": "filed_at", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+  ]
+}

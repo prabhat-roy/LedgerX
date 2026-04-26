@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.common.events",
+  "name": "MoneyAmount",
+  "doc": "Fixed-point monetary amount. Decoders MUST parse 'amount' with BigDecimal/decimal.Decimal — never float.",
+  "fields": [
+    { "name": "currency_code", "type": "string", "doc": "ISO 4217" },
+    { "name": "amount", "type": "string", "doc": "Canonical decimal string e.g. \"123.4500\"" },
+    { "name": "scale", "type": "int", "default": 2 }
+  ]
+}

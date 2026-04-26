@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.insurance.events",
+  "name": "ClaimFiled",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "claim_id", "type": "string" },
+    { "name": "policy_id", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount_claimed", "type": "string" }
+  ]
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package ledgerx.corebanking.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.corebanking.v1";
+option java_multiple_files = true;
+
+// interest-service: interest accrual posting (delegates to financial-rules-engine).
+service InterestService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc AccrueDaily(AccrueDailyRequest) returns (AccrueDailyResponse);
+}
+
+message AccrueDailyRequest {
+  string account_id = 1;
+  string accrual_date = 2;       // ISO-8601
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 3;
+}
+message AccrueDailyResponse {
+  ledgerx.common.v1.Money accrued_amount = 1;
+  string journal_id = 2;
+}

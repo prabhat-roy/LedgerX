@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ledgerx.lending.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.lending.v1";
+option java_multiple_files = true;
+
+// credit-scoring-service: ML credit scoring (alternative + bureau data).
+service CreditScoringService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Score(ScoreRequest) returns (ScoreResponse);
+}
+
+message ScoreRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string product_code = 2;
+  ledgerx.common.v1.Money amount_requested = 3;
+}
+message ScoreResponse {
+  int32 score = 1;               // 300-900
+  string band = 2;               // LOW, MED, HIGH
+  string model_version = 3;
+  repeated string top_factors = 4;
+}

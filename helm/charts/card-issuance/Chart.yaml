@@ -1,0 +1,6 @@
+apiVersion: v2
+name: card-issuance
+description: HSM-backed EMV personalisation (PCI-DSS scope, Rust)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

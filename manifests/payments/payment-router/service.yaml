@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: payment-router, namespace: ledgerx }
+spec:
+  type: ClusterIP
+  ports: [{ port: 60041, targetPort: http, name: http }]
+  selector: { app: payment-router }

@@ -1,0 +1,6 @@
+cloud: { provider: gcp, storageClass: pd-balanced, ingressClass: gce, regions: [us-east1, europe-west1, asia-south1], multiRegion: active-active }
+serviceAccount:
+  annotations:
+    iam.gke.io/gcp-service-account: ledgerx-payment-router@{{ .Values.gcp.project }}.iam.gserviceaccount.com
+envFrom:
+  - secretRef: { name: payment-router-gcp-secrets }

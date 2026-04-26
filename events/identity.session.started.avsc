@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.identity.events",
+  "name": "SessionStarted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "session_id", "type": "string" },
+    { "name": "user_id", "type": "string" },
+    { "name": "device_id", "type": "string" },
+    { "name": "ip", "type": "string" },
+    { "name": "channel", "type": "string", "doc": "WEB | MOBILE | API" }
+  ]
+}

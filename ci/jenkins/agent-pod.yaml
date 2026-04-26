@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: jenkins-agent
+  securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000 }
+  containers:
+    - name: builder
+      image: registry.ledgerx.internal/ci/builder:latest
+      command: ["sleep", "infinity"]
+    - name: buildah
+      image: quay.io/buildah/stable:v1.35
+      command: ["sleep", "infinity"]
+      securityContext: { privileged: true }
+    - name: trivy
+      image: aquasec/trivy:0.50.0
+      command: ["sleep", "infinity"]
+    - name: syft
+      image: anchore/syft:v1.0.0
+      command: ["sleep", "infinity"]
+    - name: cosign
+      image: gcr.io/projectsigstore/cosign:v2.2.3
+      command: ["sleep", "infinity"]
+    - name: semgrep
+      image: returntocorp/semgrep:1.55.0
+      command: ["sleep", "infinity"]
+    - name: gitleaks
+      image: zricethezav/gitleaks:v8.18.2
+      command: ["sleep", "infinity"]
+    - name: conftest
+      image: openpolicyagent/conftest:v0.49.1
+      command: ["sleep", "infinity"]
+    - name: kyverno
+      image: ghcr.io/kyverno/kyverno-cli:v1.11.4
+      command: ["sleep", "infinity"]
+    - name: git
+      image: alpine/git:v2.43.0
+      command: ["sleep", "infinity"]

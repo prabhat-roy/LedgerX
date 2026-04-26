@@ -1,6 +1,5 @@
-# Ci — LedgerX
+# CI — LedgerX
 
-CI/CD pipelines across multiple platforms (Jenkins, GitHub Actions, GitLab CI, Tekton, Drone, etc.).
-
-> Skeleton placeholder. Content will be added as the project takes shape.
-> See [../README.md](../README.md) for the LedgerX project overview.
+CI/CD across Jenkins, GitHub Actions, GitLab, Tekton.
+Every pipeline runs the security gates: Trivy, Syft (SBOM), Cosign sign + verify, Snyk, Semgrep, Gitleaks.
+Production deploys to ledger / payment-router / settlement use the GitOps two-person rule (PR + co-sign).

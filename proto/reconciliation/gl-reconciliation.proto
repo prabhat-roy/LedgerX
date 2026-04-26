@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ledgerx.reconciliation.v1;
+
+import "common/health.proto";
+
+option java_package = "com.ledgerx.reconciliation.v1";
+option java_multiple_files = true;
+
+// gl-reconciliation: internal GL reconciliation.
+service GlReconciliationService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+}

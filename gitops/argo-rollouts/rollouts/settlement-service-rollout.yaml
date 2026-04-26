@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: settlement-service, namespace: ledgerx }
+spec:
+  replicas: 4
+  strategy:
+    blueGreen:
+      activeService: settlement-service
+      previewService: settlement-service-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 300
+  selector: { matchLabels: { app: settlement-service } }
+  template:
+    metadata: { labels: { app: settlement-service, ledgerx.io/money-moving: "true" } }
+    spec:
+      containers:
+        - name: settlement-service
+          image: harbor.ledgerx.internal/ledgerx/settlement-service:0.1.0
+          ports: [{ containerPort: 60321, name: http }]

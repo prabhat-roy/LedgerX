@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package ledgerx.corebanking.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.ledgerx.corebanking.v1";
+option java_multiple_files = true;
+
+// account-service: customer/business demand-deposit accounts on CockroachDB.
+// CockroachDB chosen for multi-region active-active strong consistency.
+service AccountService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc OpenAccount(OpenAccountRequest) returns (OpenAccountResponse);
+  rpc GetAccount(GetAccountRequest) returns (Account);
+  rpc CloseAccount(CloseAccountRequest) returns (CloseAccountResponse);
+}
+
+message Account {
+  string account_id = 1;
+  ledgerx.common.v1.CustomerRef customer = 2;
+  string product_code = 3;       // SAV, CUR, NRE, ESCROW
+  string currency_code = 4;
+  string status = 5;             // ACTIVE, DORMANT, FROZEN, CLOSED
+  google.protobuf.Timestamp opened_at = 6;
+  string home_region = 7;        // CRDB region (us-east1, eu-west1, ap-south1)
+}
+
+message OpenAccountRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string product_code = 2;
+  string currency_code = 3;
+  string home_region = 4;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 5;
+  ledgerx.common.v1.AuditMetadata audit = 6;
+}
+
+message OpenAccountResponse { Account account = 1; }
+message GetAccountRequest { string account_id = 1; }
+message CloseAccountRequest {
+  string account_id = 1;
+  ledgerx.common.v1.AuditMetadata audit = 2;
+}
+message CloseAccountResponse { Account account = 1; }

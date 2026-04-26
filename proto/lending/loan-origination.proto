@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ledgerx.lending.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.lending.v1";
+option java_multiple_files = true;
+
+// loan-origination: loan origination workflow (retail/SME/mortgage).
+service LoanOriginationService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc StartApplication(StartApplicationRequest) returns (StartApplicationResponse);
+  rpc GetApplication(GetApplicationRequest) returns (LoanApplication);
+}
+
+message StartApplicationRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string product_code = 2;       // PERSONAL, MORTGAGE, SME, AUTO
+  ledgerx.common.v1.Money amount_requested = 3;
+  int32 term_months = 4;
+  string purpose = 5;
+}
+message StartApplicationResponse { string application_id = 1; }
+message GetApplicationRequest { string application_id = 1; }
+message LoanApplication {
+  string application_id = 1;
+  string status = 2;
+  ledgerx.common.v1.Money amount_requested = 3;
+}

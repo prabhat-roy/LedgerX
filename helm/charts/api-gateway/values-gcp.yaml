@@ -1,0 +1,14 @@
+# GCP overlay (GKE multi-region active-active).
+cloud:
+  provider: gcp
+  storageClass: pd-balanced
+  ingressClass: gce
+  regions: [us-east1, europe-west1, asia-south1]
+
+serviceAccount:
+  annotations:
+    iam.gke.io/gcp-service-account: ledgerx-api-gateway@{{ .Values.gcp.project }}.iam.gserviceaccount.com
+
+envFrom:
+  - secretRef:
+      name: api-gateway-gcp-secrets

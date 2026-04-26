@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.wealth.events",
+  "name": "TradeExecuted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "trade_id", "type": "string" },
+    { "name": "order_id", "type": "string" },
+    { "name": "symbol", "type": "string" },
+    { "name": "executed_quantity", "type": "string" },
+    { "name": "executed_price", "type": "string" },
+    { "name": "currency_code", "type": "string" }
+  ]
+}

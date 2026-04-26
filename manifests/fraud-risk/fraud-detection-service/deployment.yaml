@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: fraud-detection-service, namespace: ledgerx, labels: { app: fraud-detection-service, ledgerx.io/domain: fraud-risk } }
+spec:
+  replicas: 8
+  selector: { matchLabels: { app: fraud-detection-service } }
+  template:
+    metadata: { labels: { app: fraud-detection-service } }
+    spec:
+      serviceAccountName: fraud-detection-service
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: fraud-detection-service
+          image: harbor.ledgerx.internal/ledgerx/fraud-detection-service:0.1.0
+          ports: [{ name: http, containerPort: 60120 }]
+          env:
+            - { name: PORT, value: "60120" }
+            - { name: FEATURE_STORE_URL, value: "feature-store-service.ledgerx.svc.cluster.local:60125" }
+            - { name: MODEL_REGISTRY_URL, value: "mlflow.ml.svc.cluster.local:5000" }
+          livenessProbe: { httpGet: { path: /healthz, port: 60120 }, initialDelaySeconds: 30 }
+          readinessProbe: { httpGet: { path: /healthz, port: 60120 }, initialDelaySeconds: 10 }
+          resources: { requests: { cpu: 1, memory: 2Gi }, limits: { cpu: 4, memory: 8Gi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }

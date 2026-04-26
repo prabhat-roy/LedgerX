@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package ledgerx.treasury.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.treasury.v1";
+option java_multiple_files = true;
+
+// fx-service: FX rate book + spot/forward dealing.
+service FxService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Quote(QuoteRequest) returns (QuoteResponse);
+  rpc Book(BookRequest) returns (BookResponse);
+}
+
+message QuoteRequest {
+  string from_currency = 1;
+  string to_currency = 2;
+  ledgerx.common.v1.Money amount = 3;
+  string tenor = 4;              // SPOT, 1W, 1M, 3M
+}
+message QuoteResponse {
+  ledgerx.common.v1.FxRate rate = 1;
+  string quote_id = 2;
+  int32 valid_seconds = 3;
+}
+
+message BookRequest {
+  string quote_id = 1;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 2;
+  ledgerx.common.v1.AuditMetadata audit = 3;
+}
+message BookResponse {
+  string deal_id = 1;
+  string status = 2;
+}

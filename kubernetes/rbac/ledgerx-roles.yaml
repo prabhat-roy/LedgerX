@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: { name: ledgerx-developer }
+rules:
+  - { apiGroups: [""], resources: [pods, pods/log, services, configmaps], verbs: [get, list, watch] }
+  - { apiGroups: [apps], resources: [deployments, statefulsets, replicasets], verbs: [get, list, watch] }
+  - { apiGroups: [argoproj.io], resources: [rollouts], verbs: [get, list, watch] }
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: { name: ledgerx-ledger-approver }
+rules:
+  # Second-approver for blue-green promotion of money-moving rollouts.
+  - { apiGroups: [argoproj.io], resources: [rollouts], verbs: [patch, update] }
+  - { apiGroups: [argoproj.io], resources: [rollouts/status], verbs: [patch, update] }
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: { name: ledgerx-pci-cde-readonly }
+rules:
+  # PCI-DSS cardholder data environment is read-only for everyone except the issuer SAs.
+  - { apiGroups: [""], resources: [pods, services], verbs: [get, list], resourceNames: [], }

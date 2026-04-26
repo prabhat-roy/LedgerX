@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package ledgerx.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.ledgerx.common.v1";
+option java_multiple_files = true;
+
+// CustomerRef — opaque tokenised customer reference.
+// Raw national-id / SSN / Aadhaar never crosses service boundaries.
+message CustomerRef {
+  string token = 1;
+}
+
+// AccountRef — opaque IBAN/account reference.
+message AccountRef {
+  string token = 1;
+  string scheme = 2;  // IBAN, BBAN, UPI_VPA, ACCT_ID
+}
+
+// CardRef — tokenised PAN reference. The raw PAN lives in the CDE only.
+message CardRef {
+  string token = 1;
+  string last_four = 2;          // safe to log
+  string scheme = 3;             // VISA, MASTERCARD, AMEX, RUPAY, UPI
+}
+
+// Money — fixed-point monetary amount. NEVER use float for money.
+// Use BigDecimal in Java/Kotlin and decimal.Decimal in Go.
+message Money {
+  string currency_code = 1;      // ISO 4217 (USD, EUR, GBP, INR...)
+  // Decimal value as a canonical string (e.g. "12345.6789").
+  // Services MUST parse this with their language's decimal type.
+  string amount = 2;
+  // Optional minor-units convenience for low-precision currencies.
+  int64 minor_units = 3;
+  int32 scale = 4;               // number of fractional digits
+}
+
+// FxRate — a foreign-exchange rate quote.
+message FxRate {
+  string from_currency = 1;
+  string to_currency = 2;
+  string rate = 3;               // canonical decimal string
+  google.protobuf.Timestamp as_of = 4;
+  string source = 5;             // dealer, ECB, Reuters
+}
+
+// Address — postal address with optional geo anchor.
+message Address {
+  string line1 = 1;
+  string line2 = 2;
+  string city = 3;
+  string state = 4;
+  string country_code = 5;       // ISO 3166-1 alpha-2
+  string postal_code = 6;
+}
+
+// Pagination — request side.
+message PageRequest {
+  int32 size = 1;
+  string page_token = 2;
+}
+
+// Pagination — response side.
+message PageResponse {
+  string next_page_token = 1;
+  int64 total_size = 2;
+}
+
+// IdempotencyKey — required on every monetary write.
+// Duplicate keys MUST return the original response without re-executing.
+message IdempotencyKey {
+  string key = 1;
+  google.protobuf.Timestamp first_seen = 2;
+}
+
+// AuditMetadata — captured on every privileged write.
+// Two-person rule violations on ledger / payment-router writes
+// are blocked at the OPA layer using these fields.
+message AuditMetadata {
+  string actor_id = 1;
+  string actor_role = 2;
+  string approver_id = 3;        // second approver for two-person rule
+  string ip_address = 4;
+  string user_agent = 5;
+  string request_id = 6;
+  google.protobuf.Timestamp event_time = 7;
+}
+
+// ConsentToken — PSD2 / Open Banking consent reference.
+message ConsentToken {
+  string id = 1;
+  string issuer = 2;
+  string tpp_id = 3;
+  google.protobuf.Timestamp issued_at = 4;
+  google.protobuf.Timestamp expires_at = 5;
+  repeated string scopes = 6;
+}
+
+// LedgerEntryRef — append-only journal line reference.
+message LedgerEntryRef {
+  string journal_id = 1;
+  int64 sequence = 2;
+  google.protobuf.Timestamp posted_at = 3;
+}

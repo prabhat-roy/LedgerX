@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.cards.events",
+  "name": "ChargebackRaised",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "card_token", "type": "string" },
+    { "name": "original_auth_code", "type": "string" },
+    { "name": "reason_code", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "amount", "type": "string" }
+  ]
+}

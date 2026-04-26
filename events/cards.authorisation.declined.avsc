@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.cards.events",
+  "name": "AuthorisationDeclined",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "card_token", "type": "string" },
+    { "name": "response_code", "type": "string" },
+    { "name": "reason", "type": "string" }
+  ]
+}

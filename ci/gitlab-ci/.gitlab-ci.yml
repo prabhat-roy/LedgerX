@@ -1,0 +1,39 @@
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+stages: [lint, build, test, scan, sign, deploy]
+
+variables:
+  IMAGE: harbor.ledgerx.internal/ledgerx/${CI_PROJECT_NAME}
+
+proto-lint:
+  stage: lint
+  image: bufbuild/buf:1.30.0
+  script: cd proto && buf lint && buf breaking --against ".git#branch=main"
+
+helm-lint:
+  stage: lint
+  image: alpine/helm:3.14.0
+  script: for c in helm/charts/*/; do helm lint "$c"; done
+
+build-image:
+  stage: build
+  image: quay.io/buildah/stable:v1.35
+  script:
+    - buildah bud -t ${IMAGE}:${CI_COMMIT_SHORT_SHA} src/
+    - buildah push ${IMAGE}:${CI_COMMIT_SHORT_SHA}
+
+cosign-sign:
+  stage: sign
+  image: gcr.io/projectsigstore/cosign:v2.2.3
+  script:
+    - cosign sign --yes --key=${COSIGN_KEY} ${IMAGE}:${CI_COMMIT_SHORT_SHA}
+
+deploy-staging:
+  stage: deploy
+  environment: { name: staging }
+  script: scripts/argocd-bump-image.sh ${CI_PROJECT_NAME} ${CI_COMMIT_SHORT_SHA} staging aws
+  only: [main]

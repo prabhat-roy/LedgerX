@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata: { name: ledgerx-ci-build, namespace: argo }
+spec:
+  entrypoint: ci
+  arguments:
+    parameters:
+      - { name: service }
+      - { name: domain }
+      - { name: revision, value: main }
+  templates:
+    - name: ci
+      dag:
+        tasks:
+          - { name: clone, template: git-clone, arguments: { parameters: [{ name: revision, value: '{{workflow.parameters.revision}}' }] } }
+          - { name: lint-test, template: lint-test, dependencies: [clone] }
+          - { name: build-image, template: buildah, dependencies: [lint-test] }
+          - { name: trivy, template: trivy, dependencies: [build-image] }
+          - { name: cosign-sign, template: cosign-sign, dependencies: [trivy] }
+          - { name: bump-gitops, template: bump-gitops, dependencies: [cosign-sign] }
+    - name: git-clone
+      container: { image: alpine/git:v2.43.0, command: [sh, -c], args: ["git clone --depth 1 -b {{inputs.parameters.revision}} https://github.com/prabhat-roy/LedgerX /work"] }
+      inputs: { parameters: [{ name: revision }] }
+    - name: lint-test
+      container:
+        image: harbor.ledgerx.internal/ci/builder:latest
+        command: [make, -C, "src/{{workflow.parameters.domain}}/{{workflow.parameters.service}}", lint, test]
+    - name: buildah
+      container:
+        image: quay.io/buildah/stable:v1.35
+        securityContext: { privileged: true }
+        command: [sh, -c]
+        args: ["buildah bud -t harbor.ledgerx.internal/ledgerx/{{workflow.parameters.service}}:{{workflow.uid}} src/{{workflow.parameters.domain}}/{{workflow.parameters.service}}"]
+    - name: trivy
+      container: { image: aquasec/trivy:0.50.0, command: [trivy, image, --severity, CRITICAL,HIGH, --exit-code, "1", "harbor.ledgerx.internal/ledgerx/{{workflow.parameters.service}}:{{workflow.uid}}"] }
+    - name: cosign-sign
+      container: { image: gcr.io/projectsigstore/cosign:v2.2.3, command: [cosign, sign, --yes, "harbor.ledgerx.internal/ledgerx/{{workflow.parameters.service}}:{{workflow.uid}}"] }
+    - name: bump-gitops
+      container: { image: alpine/git:v2.43.0, command: [scripts/argocd-bump-image.sh, "{{workflow.parameters.service}}", "{{workflow.uid}}", staging, aws] }

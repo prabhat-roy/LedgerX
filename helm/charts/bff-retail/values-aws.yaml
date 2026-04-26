@@ -1,0 +1,6 @@
+cloud: { provider: aws, storageClass: gp3, ingressClass: alb, regions: [us-east-1, eu-west-1, ap-south-1] }
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.aws.accountId }}:role/ledgerx-bff-retail
+envFrom:
+  - secretRef: { name: bff-retail-aws-secrets }

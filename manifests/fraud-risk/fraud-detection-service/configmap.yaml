@@ -1,0 +1,4 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: fraud-detection-service, namespace: ledgerx }
+data: { LOG_LEVEL: info, P99_TARGET_MS: "100" }

@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.payments.events",
+  "name": "PaymentRouted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "correlation_id", "type": "string" },
+    { "name": "payment_id", "type": "string" },
+    { "name": "chosen_rail", "type": "string", "doc": "SWIFT, SEPA, UPI, ACH, RTP, FASTER" },
+    { "name": "reason", "type": "string" },
+    { "name": "estimated_settlement_seconds", "type": "int" }
+  ]
+}

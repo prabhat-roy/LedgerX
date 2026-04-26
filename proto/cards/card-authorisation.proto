@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ledgerx.cards.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.cards.v1";
+option java_multiple_files = true;
+
+// card-authorisation: ISO 8583 authorisation host (Rust).
+service CardAuthorisationService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Authorise(AuthMessage) returns (AuthDecision);
+}
+
+message AuthMessage {
+  ledgerx.common.v1.CardRef card = 1;     // tokenised — never raw PAN
+  ledgerx.common.v1.Money amount = 2;
+  string merchant_id = 3;
+  string mcc = 4;
+  string country_code = 5;
+  string entry_mode = 6;                  // CHIP, CONTACTLESS, ECOM
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 7;
+}
+message AuthDecision {
+  string auth_code = 1;
+  string response_code = 2;               // 00=approved, 05=do not honour, 51=insufficient
+  string fraud_score_band = 3;            // LOW, MED, HIGH
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ledgerx.insurance.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.insurance.v1";
+option java_multiple_files = true;
+
+// policy-service: policy administration (life / general).
+service PolicyService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc IssuePolicy(IssuePolicyRequest) returns (Policy);
+  rpc GetPolicy(GetPolicyRequest) returns (Policy);
+}
+
+message IssuePolicyRequest {
+  ledgerx.common.v1.CustomerRef policyholder = 1;
+  string product_code = 2;
+  ledgerx.common.v1.Money sum_insured = 3;
+  string commencement_date = 4;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 5;
+}
+message GetPolicyRequest { string policy_id = 1; }
+message Policy {
+  string policy_id = 1;
+  string status = 2;
+  ledgerx.common.v1.Money sum_insured = 3;
+}

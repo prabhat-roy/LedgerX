@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package ledgerx.fraudrisk.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.fraudrisk.v1";
+option java_multiple_files = true;
+
+// fraud-detection-service: real-time fraud detection (XGBoost via Flink).
+// SLO: P99 decisioning latency under 100 ms.
+service FraudDetectionService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Score(FraudScoreRequest) returns (FraudScoreResponse);
+}
+
+message FraudScoreRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  ledgerx.common.v1.AccountRef account = 2;
+  ledgerx.common.v1.Money amount = 3;
+  string channel = 4;            // ECOM, POS, ATM, MOBILE
+  string device_id = 5;
+  string ip = 6;
+  string merchant_id = 7;
+  string country_code = 8;
+}
+message FraudScoreResponse {
+  double score = 1;              // 0..1
+  string band = 2;               // LOW, MED, HIGH
+  string decision = 3;           // ALLOW, REVIEW, BLOCK
+  string model_version = 4;
+  repeated string top_features = 5;
+}

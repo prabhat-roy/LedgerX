@@ -1,0 +1,28 @@
+# ledger-service is a money-moving service: blue-green only, two-person rule, multi-region.
+image: { repository: ledgerx/ledger-service, tag: "", pullPolicy: IfNotPresent }
+replicaCount: 6
+service: { type: ClusterIP, port: 60021, targetPort: 60021 }
+resources:
+  requests: { cpu: 1, memory: 2Gi }
+  limits: { cpu: 4, memory: 8Gi }
+probes:
+  liveness: { httpGet: { path: /healthz, port: 60021 }, initialDelaySeconds: 30, periodSeconds: 20 }
+  readiness: { httpGet: { path: /healthz, port: 60021 }, initialDelaySeconds: 10, periodSeconds: 10 }
+serviceAccount: { create: true, annotations: {} }
+podLabels:
+  app.kubernetes.io/name: ledger-service
+  app.kubernetes.io/part-of: ledgerx
+  ledgerx.io/domain: core-banking
+  ledgerx.io/money-moving: "true"
+  ledgerx.io/two-person-rule: "true"
+podAnnotations: {}
+securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+containerSecurityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }
+env: []
+envFrom: []
+config:
+  LOG_LEVEL: info
+  COCKROACH_HOSTS: ledger-crdb.ledgerx.svc.cluster.local:26257
+  EVENTSTORE_URL: esdb://eventstore.ledgerx.svc.cluster.local:2113
+  KAFKA_BROKERS: kafka.messaging.svc.cluster.local:9092
+cloud: { provider: "", storageClass: "", ingressClass: "" }

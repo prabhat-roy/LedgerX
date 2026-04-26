@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ledgerx.payments.v1;
+
+import "common/health.proto";
+
+option java_package = "com.ledgerx.payments.v1";
+option java_multiple_files = true;
+
+// sepa-service: SEPA SCT / SCT-Inst / Direct Debit.
+service SepaService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+}

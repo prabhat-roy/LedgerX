@@ -1,0 +1,16 @@
+image: { repository: ledgerx/card-issuance, tag: "", pullPolicy: IfNotPresent }
+replicaCount: 3
+service: { type: ClusterIP, port: 60060, targetPort: 60060 }
+resources: { requests: { cpu: 200m, memory: 256Mi }, limits: { cpu: 1, memory: 1Gi } }
+probes:
+  liveness: { httpGet: { path: /healthz, port: 60060 }, initialDelaySeconds: 15, periodSeconds: 20 }
+  readiness: { httpGet: { path: /healthz, port: 60060 }, initialDelaySeconds: 5, periodSeconds: 10 }
+serviceAccount: { create: true, annotations: {} }
+podLabels: { app.kubernetes.io/name: card-issuance, app.kubernetes.io/part-of: ledgerx, ledgerx.io/domain: cards, ledgerx.io/pci-dss: "true" }
+podAnnotations: {}
+securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+containerSecurityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }
+env: []
+envFrom: []
+config: { LOG_LEVEL: info, VAULT_ADDR: "https://vault.security.svc.cluster.local:8200", HSM_PARTITION: "ledgerx-emv" }
+cloud: { provider: "" }

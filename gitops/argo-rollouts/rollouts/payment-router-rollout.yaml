@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: payment-router, namespace: ledgerx }
+spec:
+  replicas: 6
+  strategy:
+    blueGreen:
+      activeService: payment-router
+      previewService: payment-router-preview
+      autoPromotionEnabled: false       # two-person rule
+      scaleDownDelaySeconds: 300
+      prePromotionAnalysis:
+        templates: [{ templateName: ledgerx-success-rate }]
+        args: [{ name: service-name, value: payment-router-preview }]
+  selector: { matchLabels: { app: payment-router } }
+  template:
+    metadata: { labels: { app: payment-router, ledgerx.io/money-moving: "true" } }
+    spec:
+      containers:
+        - name: payment-router
+          image: harbor.ledgerx.internal/ledgerx/payment-router:0.1.0
+          ports: [{ containerPort: 60041, name: http }]

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package ledgerx.openbanking.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.openbanking.v1";
+option java_multiple_files = true;
+
+// consent-service: PSD2 consent management (CIBA + redirect).
+service ConsentService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc CreateConsent(CreateConsentRequest) returns (ledgerx.common.v1.ConsentToken);
+  rpc RevokeConsent(RevokeConsentRequest) returns (RevokeConsentResponse);
+}
+
+message CreateConsentRequest {
+  string tpp_id = 1;
+  ledgerx.common.v1.CustomerRef customer = 2;
+  repeated string scopes = 3;
+  int32 ttl_seconds = 4;
+}
+message RevokeConsentRequest { string consent_id = 1; }
+message RevokeConsentResponse { bool revoked = 1; }

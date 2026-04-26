@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ledgerx.wealth.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.wealth.v1";
+option java_multiple_files = true;
+
+// robo-advisor: robo-advisor (PyPortfolioOpt + MPT).
+service RoboAdvisorService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Recommend(RecommendRequest) returns (RecommendResponse);
+}
+
+message RecommendRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string risk_profile = 2;       // CONSERVATIVE, BALANCED, AGGRESSIVE
+  ledgerx.common.v1.Money initial_investment = 3;
+  int32 horizon_years = 4;
+}
+message RecommendResponse {
+  repeated AssetWeight allocation = 1;
+  string model_version = 2;
+}
+message AssetWeight {
+  string symbol = 1;
+  string weight = 2;             // canonical decimal
+}

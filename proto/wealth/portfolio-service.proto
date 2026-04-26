@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package ledgerx.wealth.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.wealth.v1";
+option java_multiple_files = true;
+
+// portfolio-service: customer portfolio service (Kotlin).
+service PortfolioService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc GetPortfolio(GetPortfolioRequest) returns (Portfolio);
+}
+
+message GetPortfolioRequest { ledgerx.common.v1.CustomerRef customer = 1; }
+message Portfolio {
+  string portfolio_id = 1;
+  ledgerx.common.v1.Money market_value = 2;
+  ledgerx.common.v1.Money cost_basis = 3;
+}

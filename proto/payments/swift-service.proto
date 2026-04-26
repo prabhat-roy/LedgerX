@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ledgerx.payments.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.payments.v1";
+option java_multiple_files = true;
+
+// swift-service: ISO 20022 SWIFT MT/MX gpi service.
+service SwiftService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc SendMt103(Mt103Request) returns (Mt103Response);
+  rpc SendPacs008(Pacs008Request) returns (Pacs008Response);
+}
+
+message Mt103Request {
+  string sender_bic = 1;
+  string receiver_bic = 2;
+  ledgerx.common.v1.Money amount = 3;
+  string transaction_reference = 4;
+  string remittance = 5;
+}
+message Mt103Response { string uetr = 1; string status = 2; }
+
+message Pacs008Request {
+  bytes pacs_008_xml = 1;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 2;
+}
+message Pacs008Response { string uetr = 1; string status = 2; }

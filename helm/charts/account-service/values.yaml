@@ -1,0 +1,16 @@
+image: { repository: ledgerx/account-service, tag: "", pullPolicy: IfNotPresent }
+replicaCount: 4
+service: { type: ClusterIP, port: 60020, targetPort: 60020 }
+resources: { requests: { cpu: 500m, memory: 1Gi }, limits: { cpu: 2, memory: 4Gi } }
+probes:
+  liveness: { httpGet: { path: /healthz, port: 60020 }, initialDelaySeconds: 30, periodSeconds: 20 }
+  readiness: { httpGet: { path: /healthz, port: 60020 }, initialDelaySeconds: 10, periodSeconds: 10 }
+serviceAccount: { create: true, annotations: {} }
+podLabels: { app.kubernetes.io/name: account-service, app.kubernetes.io/part-of: ledgerx, ledgerx.io/domain: core-banking, ledgerx.io/money-moving: "true" }
+podAnnotations: {}
+securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+containerSecurityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }
+env: []
+envFrom: []
+config: { LOG_LEVEL: info, COCKROACH_HOSTS: "ledger-crdb.ledgerx.svc.cluster.local:26257" }
+cloud: { provider: "" }

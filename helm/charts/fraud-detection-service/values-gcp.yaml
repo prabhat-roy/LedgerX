@@ -1,0 +1,3 @@
+cloud: { provider: gcp, regions: [us-east1, europe-west1, asia-south1], multiRegion: active-active }
+serviceAccount: { annotations: { iam.gke.io/gcp-service-account: "ledgerx-fraud-detection@{{ .Values.gcp.project }}.iam.gserviceaccount.com" } }
+envFrom: [ { secretRef: { name: fraud-detection-gcp-secrets } } ]

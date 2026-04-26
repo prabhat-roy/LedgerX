@@ -1,0 +1,23 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata: { name: ledgerx-daily, namespace: velero }
+spec:
+  schedule: "0 2 * * *"
+  template:
+    includedNamespaces: [ledgerx, cards-cde, ledgerx-data, observability, messaging, security]
+    excludedResources: [secrets]   # secrets backed up via Vault snapshot
+    storageLocation: ledgerx-velero-s3
+    ttl: 720h0m0s   # 30 days
+    snapshotVolumes: true
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata: { name: ledgerx-eventstore-hourly, namespace: velero }
+spec:
+  schedule: "0 * * * *"
+  template:
+    includedNamespaces: [ledgerx-data]
+    labelSelector: { matchLabels: { app: eventstore } }
+    storageLocation: ledgerx-velero-s3
+    ttl: 168h0m0s   # 7 days
+    snapshotVolumes: true

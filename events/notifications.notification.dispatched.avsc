@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.notifications.events",
+  "name": "NotificationDispatched",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "dispatch_id", "type": "string" },
+    { "name": "customer_token", "type": "string" },
+    { "name": "channel", "type": "string" },
+    { "name": "template_id", "type": "string" }
+  ]
+}

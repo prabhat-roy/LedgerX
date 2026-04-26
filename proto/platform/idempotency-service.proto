@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package ledgerx.platform.v1;
+
+import "common/health.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.ledgerx.platform.v1";
+option java_multiple_files = true;
+
+// idempotency-service: dedupe store for monetary writes.
+service IdempotencyService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc Reserve(ReserveRequest) returns (ReserveResponse);
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+}
+
+message ReserveRequest {
+  string key = 1;
+  string scope = 2;              // e.g. payments.transfer
+  string fingerprint = 3;        // request body hash
+}
+
+message ReserveResponse {
+  bool first_seen = 1;
+  bytes original_response = 2;   // returned when first_seen=false
+  google.protobuf.Timestamp first_seen_at = 3;
+}
+
+message LookupRequest { string key = 1; string scope = 2; }
+message LookupResponse {
+  bool found = 1;
+  bytes original_response = 2;
+}

@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.reconciliation.events",
+  "name": "MatchCompleted",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "batch_id", "type": "string" },
+    { "name": "matched_count", "type": "long" },
+    { "name": "break_count", "type": "long" }
+  ]
+}

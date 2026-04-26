@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package ledgerx.cards.v1;
+
+import "common/types.proto";
+import "common/health.proto";
+
+option java_package = "com.ledgerx.cards.v1";
+option java_multiple_files = true;
+
+// card-issuance: HSM-backed EMV personalisation. PCI-DSS scope.
+// Raw PAN is never returned — only `CardRef` tokens leave the CDE.
+service CardIssuanceService {
+  rpc Health(ledgerx.common.v1.HealthRequest) returns (ledgerx.common.v1.HealthResponse);
+
+  rpc IssueCard(IssueCardRequest) returns (IssueCardResponse);
+}
+
+message IssueCardRequest {
+  ledgerx.common.v1.CustomerRef customer = 1;
+  string product_code = 2;       // VISA_DEBIT, MC_CREDIT, RUPAY_PREPAID
+  string bin = 3;
+  ledgerx.common.v1.IdempotencyKey idempotency_key = 4;
+  ledgerx.common.v1.AuditMetadata audit = 5;
+}
+
+message IssueCardResponse {
+  ledgerx.common.v1.CardRef card = 1;
+  string fulfilment_status = 2;
+}

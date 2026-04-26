@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.payments.events",
+  "name": "PaymentReturned",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "payment_id", "type": "string" },
+    { "name": "return_code", "type": "string" },
+    { "name": "reason", "type": "string" }
+  ]
+}

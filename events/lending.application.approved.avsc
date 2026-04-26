@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.ledgerx.lending.events",
+  "name": "ApplicationApproved",
+  "fields": [
+    { "name": "event_id", "type": { "type": "string", "logicalType": "uuid" } },
+    { "name": "event_time", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "application_id", "type": "string" },
+    { "name": "approver_id", "type": "string" },
+    { "name": "currency_code", "type": "string" },
+    { "name": "approved_amount", "type": "string" },
+    { "name": "annual_rate", "type": "string", "doc": "Canonical decimal e.g. 0.0625" }
+  ]
+}

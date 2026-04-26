@@ -1,0 +1,16 @@
+image: { repository: ledgerx/bff-wealth, tag: "", pullPolicy: IfNotPresent }
+replicaCount: 3
+service: { type: ClusterIP, port: 60002, targetPort: 60002 }
+resources: { requests: { cpu: 100m, memory: 128Mi }, limits: { cpu: 1000m, memory: 512Mi } }
+probes:
+  liveness: { httpGet: { path: /healthz, port: 60002 }, initialDelaySeconds: 15, periodSeconds: 20 }
+  readiness: { httpGet: { path: /healthz, port: 60002 }, initialDelaySeconds: 5, periodSeconds: 10 }
+serviceAccount: { create: true, annotations: {} }
+podLabels: { app.kubernetes.io/name: bff-wealth, app.kubernetes.io/part-of: ledgerx, ledgerx.io/domain: platform }
+podAnnotations: {}
+securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: { type: RuntimeDefault } }
+containerSecurityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: ["ALL"] } }
+env: []
+envFrom: []
+config: { LOG_LEVEL: info }
+cloud: { provider: "" }

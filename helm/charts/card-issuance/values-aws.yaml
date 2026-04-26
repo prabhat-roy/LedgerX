@@ -1,0 +1,6 @@
+cloud: { provider: aws, regions: [us-east-1, eu-west-1, ap-south-1] }
+serviceAccount: { annotations: { eks.amazonaws.com/role-arn: "arn:aws:iam::{{ .Values.aws.accountId }}:role/ledgerx-card-issuance" } }
+config:
+  HSM_TYPE: cloudhsm
+  AWS_CLOUDHSM_CLUSTER: "{{ .Values.aws.cloudhsmCluster }}"
+envFrom: [ { secretRef: { name: card-issuance-aws-secrets } } ]
