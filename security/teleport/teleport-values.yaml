@@ -1,0 +1,10 @@
+clusterName: ledgerx.teleport.internal
+authentication:
+  type: github
+  githubConnector:
+    name: github
+    redirectUrl: https://teleport.ledgerx.internal/v1/webapi/github/callback
+kubeClusterName: ledgerx-prod
+ingress:
+  enabled: true
+  hostname: teleport.ledgerx.internal

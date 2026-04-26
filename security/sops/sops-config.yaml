@@ -1,0 +1,7 @@
+creation_rules:
+  - path_regex: secrets/ledgerx/.*\.yaml
+    kms: arn:aws:kms:us-east-1:111111111111:alias/ledgerx-sops
+  - path_regex: secrets/ledgerx/gcp/.*\.yaml
+    gcp_kms: projects/ledgerx-prod/locations/global/keyRings/ledgerx/cryptoKeys/sops
+  - path_regex: secrets/ledgerx/azure/.*\.yaml
+    azure_keyvault: https://ledgerx-kv.vault.azure.net/keys/sops/abc123

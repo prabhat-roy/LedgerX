@@ -1,0 +1,8 @@
+config:
+  rootDomain: pomerium.ledgerx.internal
+  generateSignedJWT: true
+authenticate:
+  idp:
+    provider: oidc
+    url: https://keycloak.ledgerx.internal
+ingressController: { enabled: true }

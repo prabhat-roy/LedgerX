@@ -1,0 +1,8 @@
+name: ledgerx
+description: LedgerX — Pulumi alternative IaC (mirrors infra/terraform/{aws,gcp,azure})
+runtime: { name: nodejs, options: { typescript: true } }
+backend:
+  url: s3://ledgerx-pulumi-state
+config:
+  ledgerx:env: prod
+  ledgerx:cloud: aws

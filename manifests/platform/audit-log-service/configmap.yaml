@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: audit-log-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: audit-log-service, ledgerx.io/domain: platform }
+data:
+  LOG_LEVEL: info
+  PORT: "51008"
