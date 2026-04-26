@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "accounting-bridge.fullname" . }}
+  labels: {{- include "accounting-bridge.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - { port: {{ .Values.service.port }}, targetPort: http, protocol: TCP, name: http }
+  selector: {{- include "accounting-bridge.selectorLabels" . | nindent 4 }}

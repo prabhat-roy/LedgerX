@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bff-open-banking.fullname" . }}
+  labels: {{- include "bff-open-banking.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - { port: {{ .Values.service.port }}, targetPort: http, protocol: TCP, name: http }
+  selector: {{- include "bff-open-banking.selectorLabels" . | nindent 4 }}
