@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpp-registry
+  namespace: ledgerx
+  labels:
+    app.kubernetes.io/name: tpp-registry
+    app.kubernetes.io/part-of: ledgerx
+    ledgerx.io/domain: open-banking
+spec:
+  replicas: 2
+  selector: { matchLabels: { app.kubernetes.io/name: tpp-registry } }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: tpp-registry, ledgerx.io/domain: open-banking }
+    spec:
+      serviceAccountName: tpp-registry
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000 }
+      containers:
+        - name: tpp-registry
+          image: harbor.ledgerx.internal/ledgerx/tpp-registry:latest
+          ports: [{ containerPort: 50242, name: http }]
+          envFrom: [{ configMapRef: { name: tpp-registry } }]
+          livenessProbe:  { httpGet: { path: /healthz, port: 50242 }, initialDelaySeconds: 15 }
+          readinessProbe: { httpGet: { path: /healthz, port: 50242 }, initialDelaySeconds: 5 }
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits:   { cpu: 1000m, memory: 512Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }

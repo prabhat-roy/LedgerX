@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: statement-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: statement-service, ledgerx.io/domain: notifications }
+data:
+  LOG_LEVEL: info
+  PORT: "50263"

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aml-reporting
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: aml-reporting, ledgerx.io/domain: compliance }
+data:
+  LOG_LEVEL: info
+  PORT: "50220"

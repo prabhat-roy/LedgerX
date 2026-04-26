@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: session-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: session-service, ledgerx.io/domain: identity }
+data:
+  LOG_LEVEL: info
+  PORT: "50022"

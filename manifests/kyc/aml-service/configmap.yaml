@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aml-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: aml-service, ledgerx.io/domain: kyc }
+data:
+  LOG_LEVEL: info
+  PORT: "50121"

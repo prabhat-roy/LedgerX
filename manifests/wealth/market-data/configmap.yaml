@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: market-data
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: market-data, ledgerx.io/domain: wealth }
+data:
+  LOG_LEVEL: info
+  PORT: "50163"

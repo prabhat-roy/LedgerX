@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: revenue-analytics
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: revenue-analytics, ledgerx.io/domain: analytics }
+data:
+  LOG_LEVEL: info
+  PORT: "50300"

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service
+  namespace: ledgerx
+  labels:
+    app.kubernetes.io/name: gateway-service
+    app.kubernetes.io/part-of: ledgerx
+    ledgerx.io/domain: payments
+spec:
+  replicas: 2
+  selector: { matchLabels: { app.kubernetes.io/name: gateway-service } }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: gateway-service, ledgerx.io/domain: payments }
+    spec:
+      serviceAccountName: gateway-service
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000 }
+      containers:
+        - name: gateway-service
+          image: harbor.ledgerx.internal/ledgerx/gateway-service:latest
+          ports: [{ containerPort: 50060, name: http }]
+          envFrom: [{ configMapRef: { name: gateway-service } }]
+          livenessProbe:  { httpGet: { path: /healthz, port: 50060 }, initialDelaySeconds: 15 }
+          readinessProbe: { httpGet: { path: /healthz, port: 50060 }, initialDelaySeconds: 5 }
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits:   { cpu: 1000m, memory: 512Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: credit-scoring
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: credit-scoring, ledgerx.io/domain: lending }
+data:
+  LOG_LEVEL: info
+  PORT: "50102"

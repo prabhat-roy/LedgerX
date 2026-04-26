@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: virtual-card
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: virtual-card, ledgerx.io/domain: cards }
+data:
+  LOG_LEVEL: info
+  PORT: "50083"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: settlement-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: settlement-service, ledgerx.io/domain: reconciliation }
+spec:
+  type: ClusterIP
+  ports: [{ name: http, port: 50321, targetPort: 50321 }]
+  selector: { app.kubernetes.io/name: settlement-service }

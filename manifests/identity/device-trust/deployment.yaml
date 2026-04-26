@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-trust
+  namespace: ledgerx
+  labels:
+    app.kubernetes.io/name: device-trust
+    app.kubernetes.io/part-of: ledgerx
+    ledgerx.io/domain: identity
+spec:
+  replicas: 2
+  selector: { matchLabels: { app.kubernetes.io/name: device-trust } }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: device-trust, ledgerx.io/domain: identity }
+    spec:
+      serviceAccountName: device-trust
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000 }
+      containers:
+        - name: device-trust
+          image: harbor.ledgerx.internal/ledgerx/device-trust:latest
+          ports: [{ containerPort: 50023, name: http }]
+          envFrom: [{ configMapRef: { name: device-trust } }]
+          livenessProbe:  { httpGet: { path: /healthz, port: 50023 }, initialDelaySeconds: 15 }
+          readinessProbe: { httpGet: { path: /healthz, port: 50023 }, initialDelaySeconds: 5 }
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits:   { cpu: 1000m, memory: 512Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }

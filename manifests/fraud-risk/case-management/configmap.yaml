@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: case-management
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: case-management, ledgerx.io/domain: fraud-risk }
+data:
+  LOG_LEVEL: info
+  PORT: "50142"

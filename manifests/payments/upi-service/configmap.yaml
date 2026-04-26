@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: upi-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: upi-service, ledgerx.io/domain: payments }
+data:
+  LOG_LEVEL: info
+  PORT: "50064"

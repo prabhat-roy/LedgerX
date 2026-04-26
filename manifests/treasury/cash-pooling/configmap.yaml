@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cash-pooling
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: cash-pooling, ledgerx.io/domain: treasury }
+data:
+  LOG_LEVEL: info
+  PORT: "50202"

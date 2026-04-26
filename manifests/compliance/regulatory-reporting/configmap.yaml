@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: regulatory-reporting
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: regulatory-reporting, ledgerx.io/domain: compliance }
+data:
+  LOG_LEVEL: info
+  PORT: "50223"

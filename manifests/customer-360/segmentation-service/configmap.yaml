@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: segmentation-service
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: segmentation-service, ledgerx.io/domain: customer-360 }
+data:
+  LOG_LEVEL: info
+  PORT: "50282"

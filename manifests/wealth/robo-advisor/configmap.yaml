@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: robo-advisor
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: robo-advisor, ledgerx.io/domain: wealth }
+data:
+  LOG_LEVEL: info
+  PORT: "50162"

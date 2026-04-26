@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: risk-scoring
+  namespace: ledgerx
+  labels: { app.kubernetes.io/name: risk-scoring, ledgerx.io/domain: fraud-risk }
+spec:
+  type: ClusterIP
+  ports: [{ name: http, port: 50141, targetPort: 50141 }]
+  selector: { app.kubernetes.io/name: risk-scoring }
