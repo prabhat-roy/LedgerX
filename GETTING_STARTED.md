@@ -1,6 +1,6 @@
 # Getting Started
 
-> Quickstart for developers joining this project. For the full architecture, read
+> Quickstart for developers joining LedgerX. For the full architecture, read
 > [README.md](README.md) and [CLAUDE.md](CLAUDE.md).
 
 ---
@@ -22,6 +22,8 @@ Language toolchains (install only what you need for the services you'll touch):
 | Python | 3.12+ | <https://www.python.org/> |
 | Node.js | 22+ | <https://nodejs.org/> |
 | Rust | 1.80+ | <https://rustup.rs/> |
+| Scala | 3.x | via Coursier |
+| Haskell | GHC 9.6+ | via GHCup |
 | TypeScript | 5+ | via npm |
 
 Optional but recommended:
@@ -30,38 +32,21 @@ Optional but recommended:
 - `helm` v3
 - `buf` (proto codegen)
 - `kubectl` v1.30+
+- `cockroach` CLI
+- `softhsm2` for local HSM tests
 
 ---
 
 ## First-time setup
 
-`ash
-# 1. Clone and enter the project
-git clone <git-url>
-cd <project>
-
-# 2. Copy the env template
+```bash
+git clone https://github.com/prabhat-roy/LedgerX.git
+cd LedgerX
 cp .env.example .env
-
-# 3. Install local dev tooling
 make bootstrap
-
-# 4. Start the local stack (Postgres, Mongo, Redis, Kafka, MinIO, Keycloak, etc.)
 make compose-up
-
-# 5. Verify services are healthy
 docker compose ps
-`
-
----
-
-## Running tests
-
-`ash
-make test         # all tests across all services
-make lint         # lint everything
-make fmt          # format everything
-`
+```
 
 ---
 
@@ -69,29 +54,21 @@ make fmt          # format everything
 
 Each service lives under `src/<domain>/<service>/` and has its own `Makefile`.
 
-`ash
+```bash
 cd src/<domain>/<service>
-make run          # start the service against the local stack
-make test         # service-local tests
-`
+make run
+make test
+```
 
 ---
 
-## Generating proto bindings
+## Money safety
 
-`ash
-make proto        # regenerates all gRPC bindings from proto/
-`
-
----
-
-## Deploying to local Kubernetes
-
-`ash
-kind create cluster --name local
-make deploy-local
-kubectl port-forward svc/api-gateway 8080:80
-`
+- Never use `float` / `double` for amounts. Use `BigDecimal` (Java/Kotlin),
+  `decimal.Decimal` (Go), `rust_decimal::Decimal` (Rust), `Decimal` (Python),
+  or `Rational` (Haskell).
+- Every monetary write requires an `Idempotency-Key` header (OPA enforces).
+- Ledger writes are **append-only** — never UPDATE/DELETE on the journal.
 
 ---
 
@@ -105,7 +82,7 @@ kubectl port-forward svc/api-gateway 8080:80
 | gRPC schemas | `proto/` |
 | Kafka event schemas | `events/` |
 | Helm charts | `helm/charts/` |
-| Terraform / OpenTofu | `infra/` |
+| Terraform (multi-cloud) | `infra/terraform/{aws,gcp,azure}/` |
 | CI pipelines | `ci/` |
 | GitOps configs | `gitops/` |
 | Observability configs | `observability/` |
@@ -116,6 +93,6 @@ kubectl port-forward svc/api-gateway 8080:80
 
 ## Help
 
-- ADRs in `docs/adr/` capture major architectural decisions
-- Service-level questions: see the README inside the service directory
-- Anything missing: check [CLAUDE.md](CLAUDE.md), or open a PR with the change you'd like
+- ADRs in `docs/adr/` capture major architectural decisions.
+- Service-level questions: see the README inside the service directory.
+- Anything missing: check [CLAUDE.md](CLAUDE.md), or open a PR.

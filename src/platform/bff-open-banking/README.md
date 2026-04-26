@@ -1,0 +1,5 @@
+# bff-open-banking
+
+BFF for Open Banking (PSD2/FAPI)
+
+**Domain:** `platform` · **Language:** go · **Port:** 60004

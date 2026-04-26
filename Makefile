@@ -13,7 +13,7 @@ help:
 	@echo "  proto          Regenerate gRPC bindings from proto/"
 	@echo "  build          Build all service container images"
 	@echo "  test           Run unit + integration tests across all services"
-	@echo "  lint           Lint all source (Go, Java, Kotlin, Python, Node, TS)"
+	@echo "  lint           Lint all source (Go, Java, Kotlin, Rust, Python, Scala, Haskell, Node, TS)"
 	@echo "  fmt            Format all source"
 	@echo "  compose-up     Start full local stack (docker compose up)"
 	@echo "  compose-down   Tear down local stack"
@@ -25,22 +25,22 @@ help:
 	@echo "  clean          Remove build artefacts"
 
 bootstrap:
-	@scripts/bootstrap.sh
+	@scripts/bash/bootstrap.sh
 
 proto:
 	@cd proto && buf generate
 
 build:
-	@scripts/build-all.sh
+	@scripts/bash/build-all.sh
 
 test:
-	@scripts/run-tests.sh
+	@scripts/bash/run-tests.sh
 
 lint:
-	@scripts/lint-all.sh
+	@scripts/bash/lint-all.sh
 
 fmt:
-	@scripts/fmt-all.sh
+	@scripts/bash/fmt-all.sh
 
 compose-up:
 	@docker compose up -d
@@ -49,7 +49,7 @@ compose-down:
 	@docker compose down
 
 deploy-local:
-	@scripts/deploy-local.sh
+	@scripts/bash/deploy-local.sh
 
 helm-lint:
 	@find helm/charts -name Chart.yaml -execdir helm lint . \;
@@ -58,10 +58,10 @@ k8s-validate:
 	@kubeconform -strict -summary manifests/
 
 scan-images:
-	@scripts/scan-images.sh
+	@scripts/bash/scan-images.sh
 
 sbom:
-	@scripts/generate-sbom.sh
+	@scripts/bash/generate-sbom.sh
 
 clean:
 	@find . -name 'bin' -type d -prune -exec rm -rf {} +
