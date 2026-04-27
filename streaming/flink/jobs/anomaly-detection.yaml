@@ -1,0 +1,10 @@
+﻿apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata: { name: ledgerx-anomaly-detection, namespace: ledgerx }
+spec:
+  deploymentName: ledgerx-flink
+  job:
+    jarURI: s3://ledgerx-flink-jobs/anomaly-detection.jar
+    parallelism: 6
+    upgradeMode: savepoint
+    args: ["--source-topic", "ledgerx.metrics.raw", "--sink-topic", "ledgerx.alerts.anomaly"]

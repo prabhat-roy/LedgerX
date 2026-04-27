@@ -1,0 +1,9 @@
+﻿apiVersion: chaos-mesh.org/v1alpha1
+kind: DNSChaos
+metadata: { name: ledgerx-dns-error, namespace: chaos-mesh }
+spec:
+  action: error
+  mode: all
+  patterns: ["*.ledgerx.svc.cluster.local"]
+  selector: { namespaces: [ledgerx] }
+  duration: 2m

@@ -1,0 +1,14 @@
+﻿name: ledgerx_analytics
+version: 1.0.0
+config-version: 2
+profile: ledgerx
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+models:
+  ledgerx_analytics:
+    staging:   { +materialized: view, +schema: stg }
+    marts:     { +materialized: table, +schema: mart }
+    intermediate: { +materialized: ephemeral }

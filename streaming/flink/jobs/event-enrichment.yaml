@@ -1,0 +1,10 @@
+﻿apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata: { name: ledgerx-event-enrichment, namespace: ledgerx }
+spec:
+  deploymentName: ledgerx-flink
+  job:
+    jarURI: s3://ledgerx-flink-jobs/event-enrichment.jar
+    parallelism: 4
+    upgradeMode: savepoint
+    args: ["--source-topic", "ledgerx.cdc.public.events", "--sink-topic", "ledgerx.events.enriched"]

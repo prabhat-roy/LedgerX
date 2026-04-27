@@ -1,0 +1,6 @@
+﻿plugins:
+  - { id: tech-radar, config: { url: https://github.com/prabhat-roy/LedgerX/raw/main/backstage/tech-radar.json } }
+  - { id: lighthouse, config: { baseUrl: https://lhci.ledgerx.internal } }
+  - { id: opencost,   config: { baseUrl: https://opencost.ledgerx.internal } }
+  - { id: argocd,     config: { url: https://argocd.ledgerx.internal, token: "${ARGOCD_TOKEN}" } }
+  - { id: kubernetes, config: { clusters: [{ name: ledgerx-aws, url: https://eks.ledgerx.aws.internal }, { name: ledgerx-gcp, url: https://gke.ledgerx.gcp.internal }, { name: ledgerx-azure, url: https://aks.ledgerx.azure.internal }] } }

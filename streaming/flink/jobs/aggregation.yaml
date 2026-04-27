@@ -1,0 +1,10 @@
+﻿apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata: { name: ledgerx-aggregation, namespace: ledgerx }
+spec:
+  deploymentName: ledgerx-flink
+  job:
+    jarURI: s3://ledgerx-flink-jobs/aggregation.jar
+    parallelism: 8
+    upgradeMode: savepoint
+    args: ["--source-topic", "ledgerx.events.enriched", "--sink-topic", "ledgerx.metrics.aggregated", "--window", "5m"]
