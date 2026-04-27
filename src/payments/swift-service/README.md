@@ -1,8 +1,8 @@
-# swift-service
+﻿# swift-service
 
-Service in the **payments** domain of LedgerX.
+Service in the payments domain of LedgerX.
 
-**Language:** Go · **Port:** 50062
+Language: Go Â· Port: 50062
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/swift-service/](../../../helm/charts/swift-service/) — Helm chart
-- [manifests/payments/swift-service/](../../../manifests/payments/swift-service/) — Raw K8s manifests
+- [helm/charts/swift-service/](../../../helm/charts/swift-service/) â€” Helm chart
+- [manifests/payments/swift-service/](../../../manifests/payments/swift-service/) â€” Raw K8s manifests

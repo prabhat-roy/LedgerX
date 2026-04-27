@@ -1,8 +1,8 @@
-# churn-prediction
+﻿# churn-prediction
 
-Service in the **analytics** domain of LedgerX.
+Service in the analytics domain of LedgerX.
 
-**Language:** Go · **Port:** 50301
+Language: Go Â· Port: 50301
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/churn-prediction/](../../../helm/charts/churn-prediction/) — Helm chart
-- [manifests/analytics/churn-prediction/](../../../manifests/analytics/churn-prediction/) — Raw K8s manifests
+- [helm/charts/churn-prediction/](../../../helm/charts/churn-prediction/) â€” Helm chart
+- [manifests/analytics/churn-prediction/](../../../manifests/analytics/churn-prediction/) â€” Raw K8s manifests

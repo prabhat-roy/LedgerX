@@ -1,5 +1,5 @@
-# accounting-bridge
+﻿# accounting-bridge
 
 Accounting subledger to General Ledger bridge.
 
-**Domain:** `core-banking` · **Language:** kotlin · **Port:** 60031
+Domain: `core-banking` Â· Language: kotlin Â· Port: 60031

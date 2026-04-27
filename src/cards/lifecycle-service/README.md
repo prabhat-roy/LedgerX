@@ -1,8 +1,8 @@
-# lifecycle-service
+﻿# lifecycle-service
 
-Service in the **cards** domain of LedgerX.
+Service in the cards domain of LedgerX.
 
-**Language:** Go · **Port:** 50082
+Language: Go Â· Port: 50082
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/lifecycle-service/](../../../helm/charts/lifecycle-service/) — Helm chart
-- [manifests/cards/lifecycle-service/](../../../manifests/cards/lifecycle-service/) — Raw K8s manifests
+- [helm/charts/lifecycle-service/](../../../helm/charts/lifecycle-service/) â€” Helm chart
+- [manifests/cards/lifecycle-service/](../../../manifests/cards/lifecycle-service/) â€” Raw K8s manifests

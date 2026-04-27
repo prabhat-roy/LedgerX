@@ -1,8 +1,8 @@
-# consent-service
+﻿# consent-service
 
-Service in the **open-banking** domain of LedgerX.
+Service in the open-banking domain of LedgerX.
 
-**Language:** Go · **Port:** 50240
+Language: Go Â· Port: 50240
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/consent-service/](../../../helm/charts/consent-service/) — Helm chart
-- [manifests/open-banking/consent-service/](../../../manifests/open-banking/consent-service/) — Raw K8s manifests
+- [helm/charts/consent-service/](../../../helm/charts/consent-service/) â€” Helm chart
+- [manifests/open-banking/consent-service/](../../../manifests/open-banking/consent-service/) â€” Raw K8s manifests

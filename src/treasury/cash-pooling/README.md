@@ -1,8 +1,8 @@
-# cash-pooling
+﻿# cash-pooling
 
-Service in the **treasury** domain of LedgerX.
+Service in the treasury domain of LedgerX.
 
-**Language:** Go · **Port:** 50202
+Language: Go Â· Port: 50202
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/cash-pooling/](../../../helm/charts/cash-pooling/) — Helm chart
-- [manifests/treasury/cash-pooling/](../../../manifests/treasury/cash-pooling/) — Raw K8s manifests
+- [helm/charts/cash-pooling/](../../../helm/charts/cash-pooling/) â€” Helm chart
+- [manifests/treasury/cash-pooling/](../../../manifests/treasury/cash-pooling/) â€” Raw K8s manifests

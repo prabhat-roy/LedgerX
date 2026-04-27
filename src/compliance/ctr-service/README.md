@@ -1,8 +1,8 @@
-# ctr-service
+﻿# ctr-service
 
-Service in the **compliance** domain of LedgerX.
+Service in the compliance domain of LedgerX.
 
-**Language:** Go · **Port:** 50221
+Language: Go Â· Port: 50221
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/ctr-service/](../../../helm/charts/ctr-service/) — Helm chart
-- [manifests/compliance/ctr-service/](../../../manifests/compliance/ctr-service/) — Raw K8s manifests
+- [helm/charts/ctr-service/](../../../helm/charts/ctr-service/) â€” Helm chart
+- [manifests/compliance/ctr-service/](../../../manifests/compliance/ctr-service/) â€” Raw K8s manifests

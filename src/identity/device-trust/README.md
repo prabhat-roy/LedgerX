@@ -1,8 +1,8 @@
-# device-trust
+﻿# device-trust
 
-Service in the **identity** domain of LedgerX.
+Service in the identity domain of LedgerX.
 
-**Language:** Go · **Port:** 50023
+Language: Go Â· Port: 50023
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/device-trust/](../../../helm/charts/device-trust/) — Helm chart
-- [manifests/identity/device-trust/](../../../manifests/identity/device-trust/) — Raw K8s manifests
+- [helm/charts/device-trust/](../../../helm/charts/device-trust/) â€” Helm chart
+- [manifests/identity/device-trust/](../../../manifests/identity/device-trust/) â€” Raw K8s manifests

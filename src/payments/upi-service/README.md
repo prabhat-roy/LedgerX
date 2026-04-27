@@ -1,8 +1,8 @@
-# upi-service
+﻿# upi-service
 
-Service in the **payments** domain of LedgerX.
+Service in the payments domain of LedgerX.
 
-**Language:** Go · **Port:** 50064
+Language: Go Â· Port: 50064
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/upi-service/](../../../helm/charts/upi-service/) — Helm chart
-- [manifests/payments/upi-service/](../../../manifests/payments/upi-service/) — Raw K8s manifests
+- [helm/charts/upi-service/](../../../helm/charts/upi-service/) â€” Helm chart
+- [manifests/payments/upi-service/](../../../manifests/payments/upi-service/) â€” Raw K8s manifests

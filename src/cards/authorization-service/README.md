@@ -1,8 +1,8 @@
-# authorization-service
+﻿# authorization-service
 
-Service in the **cards** domain of LedgerX.
+Service in the cards domain of LedgerX.
 
-**Language:** Go · **Port:** 50081
+Language: Go Â· Port: 50081
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/authorization-service/](../../../helm/charts/authorization-service/) — Helm chart
-- [manifests/cards/authorization-service/](../../../manifests/cards/authorization-service/) — Raw K8s manifests
+- [helm/charts/authorization-service/](../../../helm/charts/authorization-service/) â€” Helm chart
+- [manifests/cards/authorization-service/](../../../manifests/cards/authorization-service/) â€” Raw K8s manifests

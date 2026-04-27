@@ -1,8 +1,8 @@
-# psd2-service
+﻿# psd2-service
 
-Service in the **open-banking** domain of LedgerX.
+Service in the open-banking domain of LedgerX.
 
-**Language:** Go · **Port:** 50243
+Language: Go Â· Port: 50243
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/psd2-service/](../../../helm/charts/psd2-service/) — Helm chart
-- [manifests/open-banking/psd2-service/](../../../manifests/open-banking/psd2-service/) — Raw K8s manifests
+- [helm/charts/psd2-service/](../../../helm/charts/psd2-service/) â€” Helm chart
+- [manifests/open-banking/psd2-service/](../../../manifests/open-banking/psd2-service/) â€” Raw K8s manifests

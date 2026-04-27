@@ -1,8 +1,8 @@
-# api-gateway-ob
+﻿# api-gateway-ob
 
-Service in the **open-banking** domain of LedgerX.
+Service in the open-banking domain of LedgerX.
 
-**Language:** Go · **Port:** 50241
+Language: Go Â· Port: 50241
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/api-gateway-ob/](../../../helm/charts/api-gateway-ob/) — Helm chart
-- [manifests/open-banking/api-gateway-ob/](../../../manifests/open-banking/api-gateway-ob/) — Raw K8s manifests
+- [helm/charts/api-gateway-ob/](../../../helm/charts/api-gateway-ob/) â€” Helm chart
+- [manifests/open-banking/api-gateway-ob/](../../../manifests/open-banking/api-gateway-ob/) â€” Raw K8s manifests

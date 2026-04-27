@@ -1,8 +1,8 @@
-# router-service
+﻿# router-service
 
-Service in the **payments** domain of LedgerX.
+Service in the payments domain of LedgerX.
 
-**Language:** Go · **Port:** 50061
+Language: Go Â· Port: 50061
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/router-service/](../../../helm/charts/router-service/) — Helm chart
-- [manifests/payments/router-service/](../../../manifests/payments/router-service/) — Raw K8s manifests
+- [helm/charts/router-service/](../../../helm/charts/router-service/) â€” Helm chart
+- [manifests/payments/router-service/](../../../manifests/payments/router-service/) â€” Raw K8s manifests

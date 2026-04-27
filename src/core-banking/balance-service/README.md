@@ -1,5 +1,5 @@
-# balance-service
+﻿# balance-service
 
 Real-time balance projections from ledger events.
 
-**Domain:** `core-banking` · **Language:** java · **Port:** 60023
+Domain: `core-banking` Â· Language: java Â· Port: 60023

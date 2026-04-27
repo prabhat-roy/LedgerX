@@ -1,8 +1,8 @@
-# sepa-service
+﻿# sepa-service
 
-Service in the **payments** domain of LedgerX.
+Service in the payments domain of LedgerX.
 
-**Language:** Go · **Port:** 50063
+Language: Go Â· Port: 50063
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/sepa-service/](../../../helm/charts/sepa-service/) — Helm chart
-- [manifests/payments/sepa-service/](../../../manifests/payments/sepa-service/) — Raw K8s manifests
+- [helm/charts/sepa-service/](../../../helm/charts/sepa-service/) â€” Helm chart
+- [manifests/payments/sepa-service/](../../../manifests/payments/sepa-service/) â€” Raw K8s manifests

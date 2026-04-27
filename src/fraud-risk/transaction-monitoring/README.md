@@ -1,8 +1,8 @@
-# transaction-monitoring
+﻿# transaction-monitoring
 
-Service in the **fraud-risk** domain of LedgerX.
+Service in the fraud-risk domain of LedgerX.
 
-**Language:** Go · **Port:** 50140
+Language: Go Â· Port: 50140
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/transaction-monitoring/](../../../helm/charts/transaction-monitoring/) — Helm chart
-- [manifests/fraud-risk/transaction-monitoring/](../../../manifests/fraud-risk/transaction-monitoring/) — Raw K8s manifests
+- [helm/charts/transaction-monitoring/](../../../helm/charts/transaction-monitoring/) â€” Helm chart
+- [manifests/fraud-risk/transaction-monitoring/](../../../manifests/fraud-risk/transaction-monitoring/) â€” Raw K8s manifests

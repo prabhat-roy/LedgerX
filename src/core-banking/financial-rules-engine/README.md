@@ -1,12 +1,12 @@
-# financial-rules-engine
+﻿# financial-rules-engine
 
-**Haskell** — pure functional core for financial calculation:
+Haskell â€” pure functional core for financial calculation:
 interest accrual, IFRS 17 cashflow projection, day-count conventions
 (ACT/360, ACT/365, 30/360), holiday calendars.
 
-Pure functions: same input → same output. No side effects. Used by `interest-service`,
+Pure functions: same input â†’ same output. No side effects. Used by `interest-service`,
 `amortisation-engine`, `ifrs17-engine`, `valuation-engine`.
 
-Money: `Data.Decimal.Decimal` — never `Float`/`Double`.
+Money: `Data.Decimal.Decimal` â€” never `Float`/`Double`.
 
-**Domain:** `core-banking` · **Language:** haskell · **Port:** 60026
+Domain: `core-banking` Â· Language: haskell Â· Port: 60026

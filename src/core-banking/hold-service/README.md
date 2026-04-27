@@ -1,5 +1,5 @@
-# hold-service
+﻿# hold-service
 
 Hold/lien management on accounts.
 
-**Domain:** `core-banking` · **Language:** java · **Port:** 60028
+Domain: `core-banking` Â· Language: java Â· Port: 60028

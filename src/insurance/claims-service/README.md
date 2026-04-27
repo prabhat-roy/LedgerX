@@ -1,8 +1,8 @@
-# claims-service
+﻿# claims-service
 
-Service in the **insurance** domain of LedgerX.
+Service in the insurance domain of LedgerX.
 
-**Language:** Go · **Port:** 50181
+Language: Go Â· Port: 50181
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/claims-service/](../../../helm/charts/claims-service/) — Helm chart
-- [manifests/insurance/claims-service/](../../../manifests/insurance/claims-service/) — Raw K8s manifests
+- [helm/charts/claims-service/](../../../helm/charts/claims-service/) â€” Helm chart
+- [manifests/insurance/claims-service/](../../../manifests/insurance/claims-service/) â€” Raw K8s manifests

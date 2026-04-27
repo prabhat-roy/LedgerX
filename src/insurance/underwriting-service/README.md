@@ -1,8 +1,8 @@
-# underwriting-service
+﻿# underwriting-service
 
-Service in the **insurance** domain of LedgerX.
+Service in the insurance domain of LedgerX.
 
-**Language:** Go · **Port:** 50182
+Language: Go Â· Port: 50182
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/underwriting-service/](../../../helm/charts/underwriting-service/) — Helm chart
-- [manifests/insurance/underwriting-service/](../../../manifests/insurance/underwriting-service/) — Raw K8s manifests
+- [helm/charts/underwriting-service/](../../../helm/charts/underwriting-service/) â€” Helm chart
+- [manifests/insurance/underwriting-service/](../../../manifests/insurance/underwriting-service/) â€” Raw K8s manifests

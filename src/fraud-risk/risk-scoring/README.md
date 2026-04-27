@@ -1,8 +1,8 @@
-# risk-scoring
+﻿# risk-scoring
 
-Service in the **fraud-risk** domain of LedgerX.
+Service in the fraud-risk domain of LedgerX.
 
-**Language:** Go · **Port:** 50141
+Language: Go Â· Port: 50141
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/risk-scoring/](../../../helm/charts/risk-scoring/) — Helm chart
-- [manifests/fraud-risk/risk-scoring/](../../../manifests/fraud-risk/risk-scoring/) — Raw K8s manifests
+- [helm/charts/risk-scoring/](../../../helm/charts/risk-scoring/) â€” Helm chart
+- [manifests/fraud-risk/risk-scoring/](../../../manifests/fraud-risk/risk-scoring/) â€” Raw K8s manifests

@@ -1,8 +1,8 @@
-# policy-service
+﻿# policy-service
 
-Service in the **insurance** domain of LedgerX.
+Service in the insurance domain of LedgerX.
 
-**Language:** Go · **Port:** 50180
+Language: Go Â· Port: 50180
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/policy-service/](../../../helm/charts/policy-service/) — Helm chart
-- [manifests/insurance/policy-service/](../../../manifests/insurance/policy-service/) — Raw K8s manifests
+- [helm/charts/policy-service/](../../../helm/charts/policy-service/) â€” Helm chart
+- [manifests/insurance/policy-service/](../../../manifests/insurance/policy-service/) â€” Raw K8s manifests

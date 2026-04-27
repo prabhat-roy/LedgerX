@@ -1,8 +1,8 @@
-# gateway-service
+﻿# gateway-service
 
-Service in the **payments** domain of LedgerX.
+Service in the payments domain of LedgerX.
 
-**Language:** Go · **Port:** 50060
+Language: Go Â· Port: 50060
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/gateway-service/](../../../helm/charts/gateway-service/) — Helm chart
-- [manifests/payments/gateway-service/](../../../manifests/payments/gateway-service/) — Raw K8s manifests
+- [helm/charts/gateway-service/](../../../helm/charts/gateway-service/) â€” Helm chart
+- [manifests/payments/gateway-service/](../../../manifests/payments/gateway-service/) â€” Raw K8s manifests

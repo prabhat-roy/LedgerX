@@ -1,8 +1,8 @@
-# regulatory-reporting
+﻿# regulatory-reporting
 
-Service in the **compliance** domain of LedgerX.
+Service in the compliance domain of LedgerX.
 
-**Language:** Go · **Port:** 50223
+Language: Go Â· Port: 50223
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/regulatory-reporting/](../../../helm/charts/regulatory-reporting/) — Helm chart
-- [manifests/compliance/regulatory-reporting/](../../../manifests/compliance/regulatory-reporting/) — Raw K8s manifests
+- [helm/charts/regulatory-reporting/](../../../helm/charts/regulatory-reporting/) â€” Helm chart
+- [manifests/compliance/regulatory-reporting/](../../../manifests/compliance/regulatory-reporting/) â€” Raw K8s manifests

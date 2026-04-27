@@ -1,6 +1,6 @@
-# core-banking — LedgerX
+﻿# core-banking â€” LedgerX
 
-Heart of the bank — accounts, append-only ledger, transactions, balances, EOD.
+Heart of the bank â€” accounts, append-only ledger, transactions, balances, EOD.
 
 | Service | Language | gRPC port | Description |
 |---|---|---|---|
@@ -17,5 +17,5 @@ Heart of the bank — accounts, append-only ledger, transactions, balances, EOD.
 | eod-service | java | 60030 | End-of-day cutoff and journal close |
 | accounting-bridge | kotlin | 60031 | Accounting subledger to GL bridge |
 
-> **Money rule.** Every monetary value is `BigDecimal` (Java/Kotlin). No `double`.
-> The ledger is **event-sourced**: writes are append-only, balances are projections.
+> Money rule. Every monetary value is `BigDecimal` (Java/Kotlin). No `double`.
+> The ledger is event-sourced: writes are append-only, balances are projections.

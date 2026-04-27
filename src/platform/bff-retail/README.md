@@ -1,8 +1,8 @@
-# bff-retail
+﻿# bff-retail
 
 BFF for retail customer mobile/web (React + Flutter)
 
-**Domain:** `platform` · **Language:** go · **Port:** 60001
+Domain: `platform` Â· Language: go Â· Port: 60001
 
 ## Run
 

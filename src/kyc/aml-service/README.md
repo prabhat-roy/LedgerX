@@ -1,8 +1,8 @@
-# aml-service
+﻿# aml-service
 
-Service in the **kyc** domain of LedgerX.
+Service in the kyc domain of LedgerX.
 
-**Language:** Go · **Port:** 50121
+Language: Go Â· Port: 50121
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/aml-service/](../../../helm/charts/aml-service/) — Helm chart
-- [manifests/kyc/aml-service/](../../../manifests/kyc/aml-service/) — Raw K8s manifests
+- [helm/charts/aml-service/](../../../helm/charts/aml-service/) â€” Helm chart
+- [manifests/kyc/aml-service/](../../../manifests/kyc/aml-service/) â€” Raw K8s manifests

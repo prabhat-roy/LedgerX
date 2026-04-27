@@ -1,5 +1,5 @@
-# config-proxy
+﻿# config-proxy
 
 Internal config + feature-flag proxy (Unleash).
 
-**Domain:** `platform` · **Language:** go · **Port:** 60010
+Domain: `platform` Â· Language: go Â· Port: 60010

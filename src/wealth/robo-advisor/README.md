@@ -1,8 +1,8 @@
-# robo-advisor
+﻿# robo-advisor
 
-Service in the **wealth** domain of LedgerX.
+Service in the wealth domain of LedgerX.
 
-**Language:** Go · **Port:** 50162
+Language: Go Â· Port: 50162
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/robo-advisor/](../../../helm/charts/robo-advisor/) — Helm chart
-- [manifests/wealth/robo-advisor/](../../../manifests/wealth/robo-advisor/) — Raw K8s manifests
+- [helm/charts/robo-advisor/](../../../helm/charts/robo-advisor/) â€” Helm chart
+- [manifests/wealth/robo-advisor/](../../../manifests/wealth/robo-advisor/) â€” Raw K8s manifests

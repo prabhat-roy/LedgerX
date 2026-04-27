@@ -1,5 +1,5 @@
-# interest-service
+﻿# interest-service
 
 Interest accrual posting. Delegates math to the Haskell `financial-rules-engine`.
 
-**Domain:** `core-banking` · **Language:** java · **Port:** 60024
+Domain: `core-banking` Â· Language: java Â· Port: 60024

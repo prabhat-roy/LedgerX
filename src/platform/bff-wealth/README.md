@@ -1,5 +1,5 @@
-# bff-wealth
+﻿# bff-wealth
 
 BFF for wealth management portal (Angular)
 
-**Domain:** `platform` · **Language:** go · **Port:** 60002
+Domain: `platform` Â· Language: go Â· Port: 60002

@@ -1,8 +1,8 @@
-# tpp-registry
+﻿# tpp-registry
 
-Service in the **open-banking** domain of LedgerX.
+Service in the open-banking domain of LedgerX.
 
-**Language:** Go · **Port:** 50242
+Language: Go Â· Port: 50242
 
 ## Run locally
 
@@ -12,9 +12,9 @@ make run
 
 ## Endpoints
 
-- `GET /healthz` — health check, returns `{ "status": "ok" }`
+- `GET /healthz` â€” health check, returns `{ "status": "ok" }`
 
 ## See also
 
-- [helm/charts/tpp-registry/](../../../helm/charts/tpp-registry/) — Helm chart
-- [manifests/open-banking/tpp-registry/](../../../manifests/open-banking/tpp-registry/) — Raw K8s manifests
+- [helm/charts/tpp-registry/](../../../helm/charts/tpp-registry/) â€” Helm chart
+- [manifests/open-banking/tpp-registry/](../../../manifests/open-banking/tpp-registry/) â€” Raw K8s manifests

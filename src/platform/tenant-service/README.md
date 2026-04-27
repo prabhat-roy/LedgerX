@@ -1,5 +1,5 @@
-# tenant-service
+﻿# tenant-service
 
 Tenant isolation + entitlement service.
 
-**Domain:** `platform` · **Language:** go · **Port:** 60011
+Domain: `platform` Â· Language: go Â· Port: 60011

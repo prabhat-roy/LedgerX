@@ -1,5 +1,5 @@
-# mesh-controller
+﻿# mesh-controller
 
 Service-mesh sidecar config + traffic mirroring (Istio).
 
-**Domain:** `platform` · **Language:** go · **Port:** 60009
+Domain: `platform` Â· Language: go Â· Port: 60009

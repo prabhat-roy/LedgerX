@@ -1,5 +1,5 @@
-# graphql-gateway
+﻿# graphql-gateway
 
 Federated GraphQL across domains
 
-**Domain:** `platform` · **Language:** go · **Port:** 60005
+Domain: `platform` Â· Language: go Â· Port: 60005
